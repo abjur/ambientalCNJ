@@ -1,0 +1,13 @@
+data-raw
+da_basicas.rds
+da_partes.rds
+da_rfb.rds
+Datajud.csv
+sirenejud.csv
+todos_estab.rds
+Datajud.xls
+.Rproj.user
+.Rhistory
+.Rdata
+.httr-oauth
+.DS_Store
