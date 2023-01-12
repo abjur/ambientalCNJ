@@ -42,3 +42,4 @@ cjpg_raw <- arqs |>
 cjpg_raw
 
 readr::write_rds(cjpg_raw, "data-raw/trf1/cjpg_raw.rds")
+piggyback::pb_upload("data-raw/trf1/cjpg_raw.rds", tag = "dados_brutos")
