@@ -109,3 +109,9 @@ da_parsed <- purrr::map(folders, parse, .progress = TRUE) |>
 readr::write_rds(da_parsed, "data-raw/trf1/da_cpopg_parsed.rds")
 
 da_parsed
+
+piggyback::pb_upload(
+  "data-raw/trf1/da_cpopg_parsed.rds", 
+  tag = "dados_brutos", 
+  overwrite = TRUE
+)
