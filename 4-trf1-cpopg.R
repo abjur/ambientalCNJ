@@ -115,3 +115,10 @@ piggyback::pb_upload(
   tag = "dados_brutos", 
   overwrite = TRUE
 )
+
+da_cpopg_parsed
+
+dplyr::glimpse(da_cpopg_parsed)
+
+
+da_cpopg_parsed$movs[[3]]

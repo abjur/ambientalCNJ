@@ -28,13 +28,19 @@ arqs_invasao <- lex::trf1_cjpg_download(
   "invasã*",
   dir = "data-raw/trf1/invasatilde"
 )
+arqs_grilagem <- lex::trf1_cjpg_download(
+  "grilagem",
+  dir = "data-raw/trf1/grilagem"
+)
 
 arqs <- fs::dir_ls(
   "data-raw/trf1/",
   recurse = TRUE,
   type = "file",
   glob = "*.html"
-)
+) |> 
+  stringr::str_subset("cpopg", TRUE) |> 
+  purrr::set_names()
 
 # arqs[2830] |> 
 #   # httr::BROWSE()
@@ -105,6 +111,19 @@ aux_foros <- tibble::enframe(c(
   "4302" = "GUR"
 ), "id_foro", "nm_foro")
 
+aux_tribunal <- tibble::tribble(
+  ~id_2dig, ~tribunal,
+  "30", "TJAC",
+  "31", "TJAP",
+  "32", "TJAM",
+  "37", "TJMA", 
+  "36", "TJMT",
+  "39", "TJPA",
+  "41", "TJRO",
+  "42", "TJRR",
+  "43", "TJTO"
+)
+
 
 cjpg_filter_tempo_espaco <- cjpg_raw |> 
   dplyr::mutate(
@@ -137,8 +156,16 @@ cjpg_filter <- cjpg_filter_tempo_espaco |>
   dplyr::filter(
     stringr::str_detect(texto, rx_lavagem),
     stringr::str_detect(texto, rx_crime),
-    !stringr::str_detect(texto, rx_habeas)
-  )
+    # !stringr::str_detect(texto, rx_habeas)
+  ) |> 
+  dplyr::mutate(
+    habeas_corpus = stringr::str_detect(texto, rx_habeas),
+    habeas_corpus = dplyr::if_else(habeas_corpus, "Sim", "Não")
+  ) |> 
+  dplyr::mutate(
+    id_2dig = stringr::str_sub(id_foro, 1, 2)
+  ) |> 
+  dplyr::inner_join(aux_tribunal, "id_2dig")
 
 readr::write_rds(cjpg_filter_tempo_espaco, "data-raw/trf1/cjpg_filter_tempo_espaco.rds")
 readr::write_rds(cjpg_filter, "data-raw/trf1/cjpg_filter.rds")
@@ -174,6 +201,20 @@ cjpg_filter |>
   with(paste(resumo, texto, sep = "\n\n\n@@@@@@@@@@@@@@@@@@\n\n\n")) |> 
   stringr::str_view(rx_lavagem)
 
+# export ------------------------------------------------------------------
 
-
+set.seed(1)
+tab_saida_trf1 <- cjpg_filter |> 
+  dplyr::transmute(
+    id_processo,
+    tribunal,
+    ano,
+    tema = basename(dirname(dirname(file))),
+    tema = stringr::str_replace(tema, "tilde", "o"),
+    tema = stringr::str_replace(tema, "cedil", "ao"),
+    habeas_corpus,
+    resumo = stringr::str_trunc(resumo, width = 32000),
+    texto = stringr::str_trunc(texto, width = 32000)
+  ) |> 
+  dplyr::slice_sample(prop = 1)
 
