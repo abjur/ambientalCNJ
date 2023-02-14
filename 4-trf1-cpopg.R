@@ -18,7 +18,7 @@ get_proc <- function(id, dir = ".", aux_foros) {
   if (!file.exists(arq_proc)) {
     
     foro <- stringr::str_sub(id, -4L, -1L)
-    secao <- foros |> 
+    secao <- aux_foros |> 
       dplyr::filter(id_foro == foro) |> 
       dplyr::pull(nm_foro)
 
@@ -51,7 +51,7 @@ safe <- purrr::possibly(get_proc, "")
 
 purrr::walk(
   sample(cjpg_filter_tempo_espaco$id_processo), 
-  safe,
+  get_proc,
   dir = "data-raw/trf1/cpopg", 
   aux_foros = aux_foros,
   .progress = TRUE
@@ -119,6 +119,5 @@ piggyback::pb_upload(
 da_cpopg_parsed
 
 dplyr::glimpse(da_cpopg_parsed)
-
 
 da_cpopg_parsed$movs[[3]]
