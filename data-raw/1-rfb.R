@@ -55,3 +55,55 @@ da_rfb <- todos_estab |>
 
 readr::write_rds(da_rfb, "data-raw/rfb/da_rfb.rds")
 readr::write_rds(da_rfb, "inst/relatorios/da_rfb.rds")
+
+
+# CNPJ LIST (ativo) ---------------------------------------------------------------
+da_partes_pj_ativo <- da_partes_sirenejud_ativo |> 
+  dplyr::filter(tipo_pessoa == "JURIDICA") |> 
+  dplyr::select(id_processo, nome, cnpj = numero_documento_principal) |> 
+  dplyr::mutate(
+    nome = stringr::str_squish(nome),
+    nome = abjutils::rm_accent(nome)
+  )
+
+da_partes_pj_cnpj_ativo <- da_partes_pj_ativo |> 
+  dplyr::distinct(cnpj) |> 
+  dplyr::filter(stringr::str_length(stringr::str_squish(cnpj)) == 14)
+
+raiz_ativo <- da_partes_pj_cnpj_ativo |> 
+  with(stringr::str_sub(cnpj, 1, 8)) |> 
+  unique()
+
+# download BQ (ativo) -------------------------------------------------------------
+
+todos_estab_ativo <- tb |>
+  dplyr::filter(cnpj_raiz %in% local(raiz_ativo))
+
+todos_estab_ativo <- todos_estab_ativo |> 
+  dplyr::collect()
+
+readr::write_rds(todos_estab_ativo, "data-raw/rfb/todos_estab_ativo.rds")
+
+## Baixo processamento (rodar)
+
+todos_estab_ativo <- readr::read_rds("data-raw/rfb/todos_estab_ativo.rds")
+da_partes_sirenejud_ativo <- readr::read_rds("data-raw/sirenejud/da_partes_sirenejud_ativo.rds")
+
+da_partes_pj_ativo <- da_partes_sirenejud_ativo |> 
+  dplyr::filter(tipo_pessoa == "JURIDICA") |> 
+  dplyr::select(id_processo, nome, cnpj = numero_documento_principal) |> 
+  dplyr::mutate(
+    nome = stringr::str_squish(nome),
+    nome = abjutils::rm_accent(nome)
+  )
+
+da_partes_pj_cnpj_ativo <- da_partes_pj_ativo |> 
+  dplyr::distinct(cnpj) |> 
+  dplyr::filter(stringr::str_length(stringr::str_squish(cnpj)) == 14)
+
+da_rfb_ativo <- todos_estab_ativo |> 
+  dplyr::mutate(cnpj = paste0(cnpj_raiz, cnpj_comp, cnpj_dv)) |> 
+  dplyr::semi_join(da_partes_pj_cnpj_ativo, "cnpj")
+
+readr::write_rds(da_rfb_ativo, "data-raw/rfb/da_rfb_ativo.rds")
+readr::write_rds(da_rfb_ativo, "inst/relatorios/da_rfb_ativo.rds")

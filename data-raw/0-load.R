@@ -2,13 +2,13 @@
 
 # da <- readr::read_csv("Datajud.csv", lazy = TRUE)
 # 
-# ler_coluna_json <- function(x) {
-#   if (is.na(x)) return(tibble::tibble())
-#   res <- jsonlite::fromJSON(x)
-#   if (length(res) == 0) return(tibble::tibble())
-#   if (is.data.frame(res)) res <- tibble::as_tibble(res)
-#   res
-# }
+ler_coluna_json <- function(x) {
+  if (is.na(x)) return(tibble::tibble())
+  res <- jsonlite::fromJSON(x)
+  if (length(res) == 0) return(tibble::tibble())
+  if (is.data.frame(res)) res <- tibble::as_tibble(res)
+  res
+}
 # 
 # 
 # da |> 
@@ -118,9 +118,20 @@ da_partes_sirenejud <- da_raw |>
   tidyr::unnest(partes) |> 
   janitor::clean_names()
 
-readr::write_rds(da_partes_sirenejud, "data-raw/sirenejud/da_partes_sirenejud.rds")
+da_partes_sirenejud_ativo <- da_raw |> 
+  dplyr::semi_join(da_basicas_amazon, c("numprocess" = "id_processo")) |> 
+  dplyr::transmute(
+    id_processo = numprocess, 
+    partes = purrr::map(partes_at_list, ler_coluna_json, .progress = TRUE)
+  ) |> 
+  tidyr::unnest(partes) |> 
+  janitor::clean_names()
 
+readr::write_rds(da_partes_sirenejud, "data-raw/sirenejud/da_partes_sirenejud.rds")
 readr::write_rds(da_partes_sirenejud, "inst/relatorios/da_partes_sirenejud.rds")
+readr::write_rds(da_partes_sirenejud_ativo, "data-raw/sirenejud/da_partes_sirenejud_ativo.rds")
+readr::write_rds(da_partes_sirenejud_ativo, "inst/relatorios/da_partes_sirenejud_ativo.rds")
+
 
 ## Baixo processamento (rodar)
 
@@ -134,6 +145,17 @@ am_legal <- readxl::read_excel("data-raw/misc/lista_de_municipios_Amazonia_Legal
     id_municipio = as.character(cd_mun),
     area = area_int
   )
+
+desmatamento <- readr::read_csv("data-raw/misc/DesmatamentoMunicipios2021.txt") |> 
+  janitor::clean_names() |> 
+  dplyr::mutate(desmatado_pct = desmatado2021/area_km2) |> 
+  dplyr::transmute(
+    id_municipio = as.character(cod_ibge), 
+    area_prodes = area_km2,
+    desmatado = desmatado2021,
+    desmatado_pct
+  ) |> 
+  dplyr::distinct(id_municipio, .keep_all = TRUE)
 
 da_basicas_amazon <- da_basicas |> 
   dplyr::filter(
@@ -152,10 +174,41 @@ da_basicas_amazon <- da_basicas |>
       dplyr::filter(ano == 2010), 
     c("id_municipio" = "muni_id")
   ) |> 
-  dplyr::left_join(am_legal, "id_municipio")
+  dplyr::left_join(am_legal, "id_municipio") |> 
+  dplyr::left_join(desmatamento, "id_municipio")
 
 
 readr::write_rds(da_basicas_amazon, "inst/relatorios/da_sirenejud.rds")
+
+## Segundo grau SireneJud
+
+da_basicas <- readr::read_rds("data-raw/sirenejud/da_basicas.rds")
+
+da_basicas_amazon <- da_basicas |> 
+  dplyr::filter(
+    !sgt_nm_classe %in% c("Termo Circunstanciado", "Inquérito Policial"),
+    st_grau == "G2"
+  ) |> 
+  dplyr::filter(loc_uf %in% c(amazon)) |> 
+  munifacil::limpar_colunas(loc_muni, loc_uf) |> 
+  munifacil::incluir_codigo_ibge(diagnostico = FALSE) |> 
+  dplyr::left_join(
+    dplyr::select(abjData::muni, muni_id), 
+    c("id_municipio" = "muni_id")
+  ) |> 
+  dplyr::left_join(
+    dplyr::select(abjData::pnud_min, muni_id, ano, pop) |> 
+      dplyr::filter(ano == 2010), 
+    c("id_municipio" = "muni_id")
+  ) |> 
+  dplyr::left_join(am_legal, "id_municipio") |> 
+  dplyr::left_join(desmatamento, "id_municipio")
+
+
+readr::write_rds(da_basicas_amazon, "inst/relatorios/da_sirenejud_2grau.rds")
+
+
+
 
 # corrupcao ---------------------------------------------------------------
 
@@ -206,17 +259,88 @@ da_corrup_select <- da_corrup |>
 
 readr::write_rds(da_corrup_select, "data-raw/corrupcao/da_corrup_select.rds")
 
+
 ## Baixo processamento (rodar)
 
 da_corrup_select <- readr::read_rds("data-raw/corrupcao/da_corrup_select.rds")
 
-rx_assuntos_drogas <- "3372|11355|11346|5566|9864|3553|3417|11315|3614|3548|5897|3608|3607|9859|5899|5898|5894|9858|9866|10987|5885|9861|5895|9865|5896|9860|5901|9862|9971|5900"
+rx_assuntos_drogas <- "3372|11355|5566|3553|3417|3614|5885|5895|5896|9860|5901|9862|5900"
+
 da_corrup_orgaos <- da_corrup_select |> 
   dplyr::mutate(orgao_julgador = as.numeric(orgao_julgador)) |> 
   dplyr::semi_join(
-    da_basicas_amazon, 
+    da_sirenejud, 
     c("orgao_julgador" = "trib_co_orgao")
   ) |> 
+  dplyr::distinct(numero, .keep_all = TRUE) |> 
+  dplyr::filter(!classes %in% c("[278]", "[279]")) |> 
+  dplyr::filter(!stringr::str_detect(assuntos, rx_assuntos_drogas)) |> 
+  dplyr::filter(grau == "G1") |> 
+  dplyr::mutate(
+    assuntos = stringr::str_extract(assuntos, "[0-9, ]+")
+  ) |> 
+  tidyr::separate_wider_delim(
+    cols = assuntos, 
+    names = c("codigo", "assunto2"),
+    delim = ", ", 
+    too_few = "align_start",
+    too_many = "merge",
+  ) |> 
+  dplyr::left_join(
+    dplyr::distinct(abjData::assuntos, codigo, .keep_all = TRUE), 
+    c("codigo")
+  ) |> 
+  dplyr::mutate(
+    dplyr::across(
+      dplyr::starts_with("assunto_nome"),
+      \(x) dplyr::na_if(x, y = "-")
+    ),
+    assunto = dplyr::coalesce(
+      assunto_nome6, assunto_nome5,
+      assunto_nome4, assunto_nome3,
+      assunto_nome2, assunto_nome1 
+    )
+  ) |> 
+  dplyr::mutate(
+    pd_seq_orgao  = as.character(orgao_julgador)
+  ) |> 
+  dplyr::left_join(obsCIEE::varas, "pd_seq_orgao") |> 
+  dplyr::left_join(abjData::muni, c("id_municipio" = "muni_id")) |> 
+  dplyr::left_join(
+    abjData::pnud_min |> 
+      dplyr::filter(ano == 2010) |> 
+      dplyr::select(muni_id, pop), 
+    c("id_municipio" = "muni_id")
+  ) |> 
+  dplyr::left_join(am_legal, "id_municipio") |> 
+  dplyr::mutate(
+    dt_baixa = as.Date(lubridate::ymd_hms(dt_baixa)),
+    dt_dist = as.Date(lubridate::ymd_hms(dt_dist)),
+    st_encerrado = !is.na(dt_baixa),
+    dt_baixa_complete = dplyr::if_else(st_encerrado, dt_baixa, as.Date("2022-12-07")),
+    st_tempo = as.numeric(dt_baixa_complete - dt_dist) / 30.25,
+    st_tempo = dplyr::if_else(st_tempo < 0, NA_real_, st_tempo)
+  ) |> 
+  dplyr::left_join(desmatamento, "id_municipio")
+
+readr::write_rds(da_corrup_orgaos, "inst/relatorios/da_datajud.rds")
+
+## Segundo grau DataJud
+
+da_corrup_select <- readr::read_rds("data-raw/corrupcao/da_corrup_select.rds")
+
+rx_assuntos_drogas <- "3372|11355|5566|3553|3417|3614|5885|5895|5896|9860|5901|9862|5900"
+
+da_corrup_orgaos <- da_corrup_select |> 
+  dplyr::mutate(orgao_julgador = as.numeric(orgao_julgador)) |> 
+  dplyr::filter(
+    grau == "G2", 
+    sigla %in% paste0("TJ", amazon)
+  ) |> 
+  # dplyr::semi_join(
+  #   da_sirenejud, 
+  #   c("orgao_julgador" = "trib_co_orgao")
+  # ) |> 
   dplyr::distinct(numero, .keep_all = TRUE) |> 
   dplyr::filter(!classes %in% c("[278]", "[279]")) |> 
   dplyr::filter(!stringr::str_detect(assuntos, rx_assuntos_drogas)) |> 
@@ -264,9 +388,10 @@ da_corrup_orgaos <- da_corrup_select |>
     dt_baixa_complete = dplyr::if_else(st_encerrado, dt_baixa, as.Date("2022-12-07")),
     st_tempo = as.numeric(dt_baixa_complete - dt_dist) / 30.25,
     st_tempo = dplyr::if_else(st_tempo < 0, NA_real_, st_tempo)
-  )
+  ) |> 
+  dplyr::left_join(desmatamento, "id_municipio")
 
-readr::write_rds(da_corrup_orgaos, "inst/relatorios/da_datajud.rds")
+readr::write_rds(da_corrup_orgaos, "inst/relatorios/da_datajud_2grau.rds")
 
 # amostra de processos ----------------------------------------------------
 
