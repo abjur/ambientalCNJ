@@ -1,127 +1,83 @@
 ## processamento intenso (não rodar)
 
-insist_get <- purrr::insistently(function(...) {
-  r <- httr::GET(...)
-  if (file.size(r$request$output$path) == 0) stop("erro")
-  r
-}, rate = purrr::rate_delay(10, max_times = 3))
-
-get_proc <- function(id, dir = ".", aux_foros) {
-  
-  # Arquivos
-  dir <- paste0(dir, "/", id)
-  fs::dir_create(dir)
-  arq_proc <- fs::path(dir, id, ext = "html")
-  arq_partes <- fs::path(dir, "partes", ext = "html")
-  
-  # Base do URL
-  base <- "https://processual.trf1.jus.br/consultaProcessual/"
-  
-  if (!file.exists(arq_proc)) {
-    
-    foro <- stringr::str_sub(id, -4L, -1L)
-    secao <- aux_foros |> 
-      dplyr::filter(id_foro == foro) |> 
-      dplyr::pull(nm_foro)
-
-    query <- list(
-      proc = id,
-      mostrarBaixados = "S",
-      secao = secao,
-      pg = 1,
-      enviar = "Pesquisar"
-    )
-    
-    insist_get(
-      paste0(base, "processo.php"), 
-      query = query, 
-      httr::write_disk(arq_proc, TRUE)
-    )
-    
-    # Query para pegar as partes
-    gl <- "{base}arquivo/partes.php?proc={id}&secao={secao}&origem=processual"
-    insist_get(
-      stringr::str_glue(gl), 
-      httr::write_disk(arq_partes, TRUE)
-    )
-    
-  }
-  arq_proc
-}
+devtools::load_all()
 
 safe <- purrr::possibly(get_proc, "")
 
 purrr::walk(
-  sample(cjpg_filter_tempo_espaco$id_processo), 
+  sample(cjpg_filter_tempo_espaco$id_processo),
   get_proc,
-  dir = "data-raw/trf1/cpopg", 
+  dir = "data-raw/trf1/cpopg",
   aux_foros = aux_foros,
   .progress = TRUE
 )
 
-parse <- function (dir) {
-  stopifnot(length(dir) == 1)
-  
-  capa <- xml2::read_html(
-    fs::dir_ls(dir, regexp = "partes", invert = TRUE),
-    encoding = "latin1"
-  )
-  
-  partes <- xml2::read_html(
-    fs::dir_ls(dir, regexp = "partes"),
-    encoding = "latin1"
-  )
-  
-  meta <- capa |> 
-    xml2::xml_find_all("//div[@id='aba-processo']/table") |> 
-    lex:::xml_table() |> 
-    purrr::pluck(1) |> 
-    purrr::set_names("key", "val") |> 
-    dplyr::mutate(key = lex:::name_repair(key)) |> 
-    tidyr::pivot_wider(names_from = key, values_from = val)
-  
-  movs <- capa |> 
-    xml2::xml_find_all("//div[@id='aba-movimentacao']/table") |> 
-    lex:::xml_table() |> 
-    purrr::pluck(1) |> 
-    dplyr::as_tibble() |> 
-    dplyr::rename_with(lex:::name_repair)
-  
-  partes_tbl <- partes |> 
-    xml2::xml_find_first("//table")
-  
-  if (is.na(partes_tbl)) {
-    partes <- tibble::tibble()
-  } else {
-    partes <- partes_tbl |> 
-      lex:::xml_table() |> 
-      dplyr::as_tibble() |> 
-      dplyr::rename_with(lex:::name_repair)
-  }
-  
-  meta |> 
-    dplyr::mutate(movs = list(movs), partes = list(partes))
-}
-
 folders <- fs::dir_ls("data-raw/trf1/cpopg")
 
-da_parsed <- purrr::map(folders, parse, .progress = TRUE) |> 
+da_parsed <- purrr::map(folders, parse, .progress = TRUE) |>
   purrr::list_rbind(names_to = "file")
 
-readr::write_rds(da_parsed, "data-raw/trf1/da_cpopg_parsed.rds")
+readr::write_rds(da_parsed, "data-raw/trf1/da_trf1_cpopg.rds")
 
 
 piggyback::pb_upload(
-  "data-raw/trf1/da_cpopg_parsed.rds", 
-  tag = "dados_brutos", 
+  "data-raw/trf1/da_trf1_cpopg.rds",
+  tag = "dados_brutos",
   overwrite = TRUE
 )
 
 ## processamento leve (Rodar)
 
-da_trf1_cpopg <- readr::read_rds("data-raw/trf1/da_cpopg_parsed.rds")
-readr::write_rds(da_trf1_cpopg, "inst/relatorios/da_trf1_cpopg.rds", compress = "xz")
+da_trf1_cpopg <- readr::read_rds("data-raw/trf1/da_trf1_cpopg.rds") |>
+  # reduzir tamanho
+  dplyr::select(-movs)
+
+usethis::use_data(da_trf1_cpopg, overwrite = TRUE)
 
 # dplyr::glimpse(da_cpopg_parsed)
-# 
+#
 # da_cpopg_parsed$movs[[3]]
+
+
+# tempos ------------------------------------------------------------------
+
+da_tempo_trf1 <- da_trf1_cpopg |>
+  dplyr::mutate(movs = purrr::map(
+    movs,
+    \(x) dplyr::mutate(x, complemento = as.character(complemento))
+  )) |>
+  tidyr::unnest(movs) |>
+  dplyr::filter(stringr::str_detect(descricao, "BAIXA")) |>
+  dplyr::group_by(file) |>
+  dplyr::summarise(
+    assunto = dplyr::first(assunto_da_peticao),
+    dt_dist = dplyr::first(data_de_autuacao),
+    dt_baixa = dplyr::first(data)
+  ) |>
+  dplyr::mutate(
+    dt_dist = lubridate::dmy(dt_dist),
+    dt_baixa = as.Date(lubridate::dmy_hms(dt_baixa)),
+    st_tempo = as.numeric(dt_baixa - dt_dist) / 30.25,
+    st_encerrado = 1
+  ) |>
+  tidyr::drop_na(st_tempo)
+
+usethis::use_data(da_tempo_trf1, overwrite = TRUE)
+
+piggyback::pb_upload(
+  "data-raw/trf1/da_trf1_cpopg.rds",
+  tag = "trf1",
+  overwrite = TRUE
+)
+
+piggyback::pb_upload(
+  "data-raw/trf1/cpopg.zip",
+  tag = "dados_brutos",
+  overwrite = TRUE
+)
+
+# amazonia ----------------------------------------------------------------
+
+### sf amazonia (exige conexão com internet)
+sf_amazon <- geobr::read_amazon(showProgress = FALSE)
+usethis::use_data(sf_amazon, overwrite = TRUE, compress = "xz")
