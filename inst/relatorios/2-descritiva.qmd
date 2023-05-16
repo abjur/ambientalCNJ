@@ -3,15 +3,24 @@ title: "Análise descritiva"
 author: ABJ
 date: "2023-02-15"
 format: 
-  # html:
-  #   code-fold: true
+  html:
+    code-fold: true
   docx:
-    reference-doc: template.docx
-bibliography: geral.bib
+    reference-doc: assets/template/template.docx
+bibliography: assets/bib/geral.bib
 lang: pt
 execute:
   echo: false
 ---
+
+```{r}
+#| label: setup-pacotes-bases
+#| include: false
+
+# Bases internas
+devtools::load_all(".")
+```
+
 
 ```{r}
 #| label: bases-de-dados
@@ -19,57 +28,32 @@ execute:
 #| warning: false
 #| cache: true
 
+# - da_trf1_cjpg_pequeno: dados obtidos do TRF1 - banco de sentenças
+# - da_trf1_cpopg: dados obtidos do TRF1 - consulta processual
+# - da_tempo_trf1: cálculos de tempos do TRF1
+# - da_rfb: dados da Receita Federal cruzando com Partes
+# - da_rfb_ativo: dados da Receita Federal cruzando com Partes
+# - sinesp: base de dados sobre violência do Ministério da Justiça
+# - sf_amazon: shapefile da amazônia
+
+# Bases externas
+
 ## SireneJud
-da_sirenejud <- readr::read_rds("da_sirenejud.rds")
-da_sirenejud_2grau <- readr::read_rds("da_sirenejud_2grau.rds")
-### Partes
-da_partes_sirenejud <- readr::read_rds("da_partes_sirenejud.rds")
+da_sirenejud <- readr::read_rds("assets/rds/da_sirenejud.rds")
+da_sirenejud_2grau <- readr::read_rds("assets/rds/da_sirenejud_2grau.rds")
+
+### SireneJud - Partes
+da_partes_sirenejud <- readr::read_rds("assets/rds/da_partes_sirenejud.rds")
+da_partes_sirenejud_ativo <- readr::read_rds(
+  "assets/rds/da_partes_sirenejud_ativo.rds"
+)
 
 ## DataJud
-da_datajud <- readr::read_rds("da_datajud.rds")
-da_datajud_2grau <- readr::read_rds("da_datajud_2grau.rds")
-
-## TRF1 - cpopg
-da_trf1_cpopg <- readr::read_rds("da_trf1_cpopg.rds")
-
-## TRF1 - pequeno
-da_trf1_cjpg_pequeno <- readr::read_rds("da_trf1_cjpg_pequeno.rds")
-
-## Outras bases
-
-### sf amazonia (exige conexão com internet)
-sf_amazon <- geobr::read_amazon(showProgress = FALSE)
-
-### SINESP
-sinesp <- readr::read_rds("sinesp.rds")
-
-### Dados da RFB - análise partes
-da_rfb <- readr::read_rds("da_rfb.rds")
-da_rfb_ativo <- readr::read_rds("da_rfb_ativo.rds")
-
-### Tempos na base cpopg
-da_tempo <- da_trf1_cpopg |> 
-  dplyr::mutate(movs = purrr::map(
-    movs,
-    \(x) dplyr::mutate(x, complemento = as.character(complemento))
-  )) |>
-  tidyr::unnest(movs) |> 
-  dplyr::filter(stringr::str_detect(descricao, "BAIXA")) |> 
-  dplyr::group_by(file) |> 
-  dplyr::summarise(
-    assunto = dplyr::first(assunto_da_peticao),
-    dt_dist = dplyr::first(data_de_autuacao),
-    dt_baixa = dplyr::first(data)
-  ) |> 
-  dplyr::mutate(
-    dt_dist = lubridate::dmy(dt_dist),
-    dt_baixa = as.Date(lubridate::dmy_hms(dt_baixa)),
-    st_tempo = as.numeric(dt_baixa - dt_dist) / 30.25,
-    st_encerrado = 1
-  ) |> 
-  tidyr::drop_na(st_tempo)
+da_datajud <- readr::read_rds("assets/rds/da_datajud.rds")
+da_datajud_2grau <- readr::read_rds("assets/rds/da_datajud_2grau.rds")
 
 ```
+
 
 # Introdução
 
@@ -722,9 +706,6 @@ A @tbl-tipo-pessoa mostra os tipos de pessoas que estão no polo passivo. A maio
 ```{r}
 #| label: tbl-tipo-pessoa
 #| tbl-cap: "Tipos de pessoas"
-da_partes_sirenejud <- readr::read_rds("da_partes_sirenejud.rds")
-da_partes_sirenejud_ativo <- readr::read_rds("da_partes_sirenejud_ativo.rds")
-
 da_partes_sirenejud |> 
   dplyr::count(tipo_pessoa, sort = TRUE) |> 
   dplyr::mutate(prop = formattable::percent(n/sum(n),1)) |> 
@@ -1292,14 +1273,14 @@ No TRF1, o resultado geral é mostrado na é a @fig-km-trf1. Foram retirados tem
 ```{r}
 #| label: fig-km-trf1
 #| fig-cap: "Curva de sobrevivência dos tempos de tramitação dos processos"
-km_geral <- da_tempo |> 
+km_geral <- da_tempo_trf1 |> 
   dplyr::filter(st_tempo > 0, st_tempo < 10000/30.25) |> 
   dplyr::mutate(st_tempo = st_tempo) |> 
   with(survival::survfit(survival::Surv(st_tempo, st_encerrado) ~ 1))
 
 survminer::ggsurvplot(
   km_geral, 
-  data = da_tempo, 
+  data = da_tempo_trf1, 
   surv.median.line = "hv"
 )$plot + 
   ggplot2::scale_colour_viridis_d(begin = .1, end = .9, option = 1) +
@@ -1317,7 +1298,7 @@ A @fig-km-assunto-trf1 mostra a distribuição dos tempos por assunto, considera
 #| fig-cap: "Curva de sobrevivência dos tempos de tramitação dos processos, por assunto"
 #| fig-height: 6
 #| fig-width: 9
-aux_km_assunto <- da_tempo |> 
+aux_km_assunto <- da_tempo_trf1 |> 
   dplyr::mutate(assunto = dplyr::case_when(
     stringr::str_detect(assunto, "3618") ~ "Crimes contra o Meio Ambiente e o Patrimônio Genético",
     stringr::str_detect(assunto, "10112") ~ "Revogação de multa ambiental",

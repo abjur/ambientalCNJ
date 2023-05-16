@@ -1,0 +1,4 @@
+- source: 2-descritiva.qmd
+  quarto-pub:
+    - id: 2b0900cd-c4e5-44b8-aa24-aad5074f04ff
+      url: 'https://abj.quarto.pub/ambientalcnj'
