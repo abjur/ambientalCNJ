@@ -22,6 +22,10 @@ Este repositório contém os dados e as análises utilizadas na pesquisa Corrup�
 
 O estudo completo tem como objetivo identificar e analisar as cadeias de lavagem de bens e capitais relacionadas a crimes ambientais. A pesquisa é baseada na sistematização de informações sobre os atores e processos judiciais envolvidos, examinados sob a perspectiva dos crimes ambientais e da atuação jurisdicional no assunto. Ao combinar os temas de crimes ambientais e lavagem de bens e capitais, será possível estudar as sanções previstas nas leis de combate à lavagem de dinheiro, que frequentemente são mais efetivas do que as sanções previstas nas leis de crimes ambientais. Além disso, serão geradas recomendações sobre o assunto.
 
+**Link do relatório descritivo**: [aqui](abj.quarto.pub/ambientalcnj).
+
+**Link do Dashboard**: [aqui](abjur.shinyapps.io/ambientalCNJ).
+
 A pesquisa foi desenvolvida a partir de 16 perguntas norteadoras, listadas abaixo.
 
 <details><summary>Mostrar questões norteadoras</summary>
@@ -124,8 +128,6 @@ Link do relatório: [aqui](abj.quarto.pub/ambientalcnj).
 ### Dashboard
 
 O Dashboard foi desenvolvido usando a tecnologia [`{golem}`](https://thinkr-open.github.io/golem/), que permite a criação de aplicativos Shiny utilizando melhores práticas de desenvolvimento de pacotes. Todos os scripts utilizados para gerar o dashboard estão na pasta `R/`.
-
-Link do Dashboard: [aqui](abjur.shinyapps.io/ambientalCNJ).
 
 ## Licença
 
