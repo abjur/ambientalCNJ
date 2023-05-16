@@ -268,6 +268,8 @@ de aplicativos Shiny utilizando melhores práticas de desenvolvimento de
 pacotes. Todos os scripts utilizados para gerar o dashboard estão na
 pasta `R/`.
 
+Link do Dashboard: [aqui](abjur.shinyapps.io/ambientalCNJ).
+
 ## Licença
 
 MIT
