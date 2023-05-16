@@ -3,3 +3,6 @@
 ^data-raw$
 ^README\.Rmd$
 ^LICENSE\.md$
+^inst/relatorios/2-descritiva_cache$
+^inst/relatorios/2-descritiva_files$
+^inst/relatorios/assets$
