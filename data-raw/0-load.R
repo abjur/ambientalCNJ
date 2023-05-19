@@ -251,8 +251,29 @@ da_corrup <- arqs_corrup |>
   dplyr::bind_rows(.id = "file")
 tictoc::toc()
 
-
 readr::write_rds(da_corrup, "data-raw/corrupcao/da_corrup.rds")
+
+
+
+pegar_infos_json <- function(json_file) {
+  rds_file <- fs::path_ext_set(json_file, ".rds")
+  rds_file <- paste0("data-raw/corrupcao/datajud_chunk/", basename(rds_file))
+  lista <- jsonlite::read_json(json_file, simplifyDataFrame = TRUE)[["_source"]]
+  dados_basicos <- lista |>
+    dplyr::select(-movimento) |>
+    janitor::clean_names() |>
+    tibble::as_tibble() |>
+    dplyr::rename(grau_info = grau) |>
+    tidyr::unnest(dados_basicos)
+  # salva arquivo menor
+  readr::write_rds(dados_basicos, rds_file)
+  # deleta arquivo grande
+  fs::file_delete(json_file)
+}
+arqs_datajud <- fs::dir_ls("data-raw/corrupcao/enccla-cnj/enccla-cnj/datajud/datajud")
+purrr::walk(arqs_datajud, pegar_infos_json, .progress = TRUE)
+
+
 
 piggyback::pb_new_release(tag = "corrupcao")
 

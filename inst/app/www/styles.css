@@ -1,0 +1,13 @@
+
+.btn-light {
+  color: black !important;
+}
+
+#guide {
+  right: 5%;
+  position: absolute;
+}
+
+#controlbarTitle > div.os-padding > div > div > div > div {
+  margin-bottom: 0px;
+}

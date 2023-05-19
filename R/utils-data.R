@@ -18,3 +18,6 @@
 
 #' sinesp
 "sinesp"
+
+#' da_dash
+"da_dash"

@@ -17,17 +17,41 @@ RoxygenNote: 7.2.3
 Depends: 
     R (>= 2.10)
 LazyData: true
+LazyDataCompression: xz
 Imports: 
+    abjDash,
+    abjData,
     abjutils,
+    broom,
+    bs4Dash,
+    cicerone,
     dplyr,
+    fresh,
     fs,
     geobr,
+    ggplot2,
+    golem,
     httr,
     jsonlite,
+    magrittr,
+    metathis,
+    plotly,
     purrr,
+    reactable,
     rvest,
+    scales,
     sf,
+    shiny,
+    shinycssloaders,
+    shinyjs,
+    shinyWidgets,
     stringr,
+    survival,
+    survminer,
     tibble,
     tidyr,
+    viridis,
+    writexl,
     xml2
+Remotes:
+  abjur/abjDash
