@@ -100,6 +100,31 @@ da_datajud_min <- da_datajud |>
     .before = 1
   )
 
+classes_ambiental <- readr::read_rds("/Users/julio/Downloads/classes_ambiental.rds") |>
+  dplyr::mutate(dplyr::across(classe1:classe6, \(x) dplyr::na_if(x, "-"))) |>
+  dplyr::transmute(
+    codigo = as.character(codigo),
+    classe = dplyr::coalesce(classe6, classe5, classe4, classe3, classe2, classe1)
+  )
+
+aux_join_classe <- da_datajud_min |>
+  dplyr::select(id_processo, classe) |>
+  dplyr::mutate(classe = stringr::str_split(classe, ", ")) |>
+  tidyr::unnest(classe) |>
+  dplyr::mutate(codigo = stringr::str_extract(classe, "[0-9]+")) |>
+  dplyr::inner_join(classes_ambiental, "codigo") |>
+  dplyr::transmute(
+    id_processo,
+    classe = classe.y
+  ) |>
+  dplyr::group_by(id_processo) |>
+  dplyr::summarise(classe = dplyr::first(classe))
+
+da_datajud_min <- da_datajud_min |>
+  dplyr::select(-classe) |>
+  dplyr::left_join(aux_join_classe, "id_processo") |>
+  dplyr::mutate(classe = tidyr::replace_na(classe, "Outros/Vazio"))
+
 aux_join_latlon <- forosCNJ::da_foro_comarca |>
   dplyr::filter(sigla == "TRF1") |>
   dplyr::mutate(
