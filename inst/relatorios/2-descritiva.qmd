@@ -1,7 +1,7 @@
 ---
 title: "Análise descritiva"
 author: ABJ
-date: "2023-02-15"
+date: "2023-05-22"
 format: 
   html:
     code-fold: true
@@ -143,6 +143,37 @@ A primeira base contém 10.241 processos. A base foi enriquecida com informaçõ
 A segunda base contém apenas 227 processos. Ao aplicar os filtros sobre lavagem e corrupção (especificamente: organização/associação criminosa, quadrilha, lavagem, corrupção, operação), sobram poucos casos a serem considerados.
 
 A base grande do TRF1 foi utilizada para responder às questões 2, 5 e 14. Já a base pequena do TRF1 foi utilizada para responder à questão 1.
+
+## Limitações
+
+Abaixo, explicamos os motivos de algumas questões não serem investigadas, total ou parcialmente, por conta das limitações das bases de dados. Além disso, mencionamos quais seriam os dados necessários para que as perguntas possam ser respondidas integralmente. É importante que muitas dessas informações não existem de forma estruturada no momento,  podendo ser interpretadas como sugestões de melhorias dos dados públicos para utilização em estudos futuros. 
+
+```{r}
+readxl::read_excel("assets/xlsx/limitacoes.xlsx") |> 
+  knitr::kable()
+```
+
+## Dashboard
+
+Para complementar as análises do presente relatório, um [painel de análises estatísticas foi desenvolvido](https://abjur.shinyapps.io/ambientalCNJ/). O painel apresenta informações que reforçam os achados da análise jurimétrica realizada. Por meio dos gráficos específicos disponibilizados no painel, é possível visualizar os dados relacionados aos processos ambientais aplicando filtros. Por exemplo, filtrando pelo TJAM, é possível obter os resultados da pesquisa (assuntos mais comuns, mapa e tempo dos processos) somente para o TJAM, como indicado na figura abaixo. 
+
+```{r}
+#| label: fig-dashboard1
+#| fig-cap: Filtro no dashboard da base SirejeJud em processos do TJAM.
+
+knitr::include_graphics("assets/img/dashboard1.png")
+```
+
+Outro filtro relevante é o de ano do processo, que permite identificar os padrões (tempo,  assuntos, distribuição regional) no período selecionado. Essa informação é útil para compreender a distribuição temporal dos processos e pode auxiliar na identificação de períodos mais críticos. Ao relacionar esses dados com as respostas da análise descritiva, é possível fortalecer as conclusões sobre a distribuição dos processos e a atuação do sistema jurídico em diferentes localidades.
+
+```{r}
+#| label: fig-dashboard2
+#| fig-cap: Filtro no dashboard da base SirejeJud em processos entre 2011 e 2015.
+
+knitr::include_graphics("assets/img/dashboard2.png")
+```
+
+
 
 # Análises
 
@@ -431,7 +462,7 @@ da_sirenejud_2grau |>
 A @tbl-tribunais-2grau mostra os tribunais que mais aparecem no segundo grau. Pará e Mato Grosso figuram entre os mais frequentes.
 
 ```{r}
-#| label: tbl-municipios-2grau
+#| label: tbl-tribunais-2grau
 #| tbl-cap: "Tribunais mais comuns nos processos de segundo grau."
 da_sirenejud_2grau |> 
   dplyr::mutate(
@@ -652,7 +683,7 @@ da_datajud_2grau |>
 A @tbl-tribunais-datajud-2grau mostra os tribunais que mais aparecem no segundo grau. Assim como no SireneJud, Pará e Mato Grosso figuram entre os mais frequentes.
 
 ```{r}
-#| label: tbl-municipios-datajud-2grau
+#| label: tbl-tribunais-datajud-2grau
 #| tbl-cap: "Tribunais mais comuns nos processos de segundo grau."
 da_datajud_2grau |>
   dplyr::count(sigla, sort = TRUE) |> 
@@ -1332,5 +1363,6 @@ gg$plot +
 ### Discussão
 
 As três bases apresentam padrões de tempos diferentes. No SireneJud, os processos são longos, com duração mediana maior que 7 anos e o tempo dos processos não varia muito por tema. No DataJud, os processos são um pouco mais rápidos (6 anos), com uma variação considerável por assunto. No TRF1, os processos são mais curtos, o que possivelmente é um efeito do método retrospectivo de coleta, e com pouca variação nas medianas por assunto.
+
 
 # Referências
