@@ -47,9 +47,14 @@ app_ui <- function() {
             icon = icon("chart-simple")
           ),
           bs4Dash::bs4SidebarMenuItem(
-            "Dados",
+            "Download",
             tabName = "data",
             icon = icon("database")
+          ),
+          bs4Dash::bs4SidebarMenuItem(
+            "Documentação",
+            tabName = "docs",
+            icon = icon("file-lines")
           )
         )
       ),
@@ -59,7 +64,8 @@ app_ui <- function() {
         bs4Dash::bs4TabItems(
           bs4Dash::bs4TabItem("home", mod_home_ui("home_1")),
           bs4Dash::bs4TabItem("plot", mod_plot_ui("plot_1")),
-          bs4Dash::bs4TabItem("data", mod_data_ui("data_1"))
+          bs4Dash::bs4TabItem("data", mod_data_ui("data_1")),
+          bs4Dash::bs4TabItem("docs", mod_docs_ui("docs_1"))
         )
 
       ),
