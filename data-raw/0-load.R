@@ -62,7 +62,7 @@
 
 da_raw <- readr::read_csv2(
   "data-raw/sirenejud/datajud_new_261022.csv",
-  lazy = TRUE,
+  lazy = TRUE, n_max = 100,
   locale = readr::locale(encoding = "UTF-8")
 )
 
@@ -148,14 +148,16 @@ da_basicas <- readr::read_rds("data-raw/sirenejud/da_basicas.rds")
 
 amazon <- c("AC", "AM", "RR", "AP", "PA", "MA", "TO", "RO", "MT")
 ## area dos municipios na amazonia legal
-am_legal <- readxl::read_excel("data-raw/misc/lista_de_municipios_Amazonia_Legal_2021.xlsx") |>
+am_legal <- "data-raw/misc/lista_de_municipios_Amazonia_Legal_2021.xlsx" |>
+readxl::read_excel() |>
   janitor::clean_names() |>
   dplyr::transmute(
     id_municipio = as.character(cd_mun),
     area = area_int
   )
 
-desmatamento <- readr::read_csv("data-raw/misc/DesmatamentoMunicipios2021.txt") |>
+desmatamento <- "data-raw/misc/DesmatamentoMunicipios2021.txt" |>
+  readr::read_csv() |>
   janitor::clean_names() |>
   dplyr::mutate(desmatado_pct = desmatado2021/area_km2) |>
   dplyr::transmute(
@@ -253,7 +255,7 @@ tictoc::toc()
 
 readr::write_rds(da_corrup, "data-raw/corrupcao/da_corrup.rds")
 
-
+da_corrup <- readr::read_rds("data-raw/corrupcao/da_corrup.rds")
 
 pegar_infos_json <- function(json_file) {
   rds_file <- fs::path_ext_set(json_file, ".rds")
@@ -303,7 +305,7 @@ da_corrup_select <- da_corrup |>
     polo_pa_count,
     polo_pa_juridica_count,
     mov_count,
-    dt_baixa = mov_last_baixa_dataHora
+    dt_baixa = mov_1st_julgamento_dataHora
   )
 
 readr::write_rds(da_corrup_select, "data-raw/corrupcao/da_corrup_select.rds")
@@ -318,7 +320,9 @@ piggyback::pb_upload(
 
 da_corrup_select <- readr::read_rds("data-raw/corrupcao/da_corrup_select.rds")
 
-rx_assuntos_drogas <- "3372|11355|5566|3553|3417|3614|5885|5895|5896|9860|5901|9862|5900"
+rx_assuntos_drogas <- c(
+  "3372|11355|5566|3553|3417|3614|5885|5895|5896|9860|5901|9862|5900"
+)
 
 da_corrup_orgaos <- da_corrup_select |>
   dplyr::mutate(orgao_julgador = as.numeric(orgao_julgador)) |>
@@ -371,7 +375,9 @@ da_corrup_orgaos <- da_corrup_select |>
     dt_baixa = as.Date(lubridate::ymd_hms(dt_baixa)),
     dt_dist = as.Date(lubridate::ymd_hms(dt_dist)),
     st_encerrado = !is.na(dt_baixa),
-    dt_baixa_complete = dplyr::if_else(st_encerrado, dt_baixa, as.Date("2022-12-07")),
+    dt_baixa_complete = dplyr::if_else(
+      st_encerrado, dt_baixa, as.Date("2022-12-07")
+    ),
     st_tempo = as.numeric(dt_baixa_complete - dt_dist) / 30.25,
     st_tempo = dplyr::if_else(st_tempo < 0, NA_real_, st_tempo)
   ) |>
