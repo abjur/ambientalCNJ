@@ -11,3 +11,4 @@ inst/relatorios/assets/rds
 .Rdata
 .httr-oauth
 .DS_Store
+inst/app/rsconnect
