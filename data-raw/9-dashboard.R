@@ -100,11 +100,14 @@ da_datajud_min <- da_datajud |>
     .before = 1
   )
 
-classes_ambiental <- readr::read_rds("/Users/julio/Downloads/classes_ambiental.rds") |>
+classes_ambiental <- "data-raw/corrupcao/classes_ambiental.rds" |>
+  readr::read_rds() |>
   dplyr::mutate(dplyr::across(classe1:classe6, \(x) dplyr::na_if(x, "-"))) |>
   dplyr::transmute(
     codigo = as.character(codigo),
-    classe = dplyr::coalesce(classe6, classe5, classe4, classe3, classe2, classe1)
+    classe = dplyr::coalesce(
+      classe6, classe5, classe4, classe3, classe2, classe1
+    )
   )
 
 aux_join_classe <- da_datajud_min |>
