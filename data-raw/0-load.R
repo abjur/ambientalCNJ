@@ -447,7 +447,9 @@ da_corrup_orgaos <- da_corrup_select |>
     dt_baixa = as.Date(lubridate::ymd_hms(dt_baixa)),
     dt_dist = as.Date(lubridate::ymd_hms(dt_dist)),
     st_encerrado = !is.na(dt_baixa),
-    dt_baixa_complete = dplyr::if_else(st_encerrado, dt_baixa, as.Date("2022-12-07")),
+    dt_baixa_complete = dplyr::if_else(
+      st_encerrado, dt_baixa, as.Date("2022-12-07")
+    ),
     st_tempo = as.numeric(dt_baixa_complete - dt_dist) / 30.25,
     st_tempo = dplyr::if_else(st_tempo < 0, NA_real_, st_tempo)
   ) |>
