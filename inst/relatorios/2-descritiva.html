@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt">
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.3.340" />
 
-<meta name="author" content="ABJ">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+<meta name="author" content="ABJ" />
 
 <title>Análise descritiva</title>
 <style>
@@ -42,17 +44,7 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
-
-<script src="2-descritiva_files/libs/clipboard/clipboard.min.js"></script>
-<script src="2-descritiva_files/libs/quarto-html/quarto.js"></script>
-<script src="2-descritiva_files/libs/quarto-html/popper.min.js"></script>
-<script src="2-descritiva_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="2-descritiva_files/libs/quarto-html/anchor.min.js"></script>
-<link href="2-descritiva_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="2-descritiva_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="2-descritiva_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="2-descritiva_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="2-descritiva_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<!-- htmldependencies:E3FAD763 -->
 
 
 </head>
@@ -61,7 +53,7 @@ div.csl-indent {
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-<div class="quarto-alternate-formats"><h2>Outros formatos</h2><ul><li><a href="2-descritiva.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></div>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -83,7 +75,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Data de Publicação</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">22 de maio de 2023</p>
+      <p class="date">10 de junho de 2023</p>
     </div>
   </div>
   
@@ -116,7 +108,7 @@ div.csl-indent {
 <li>Qual a quantidade de ações criminais que apuram crimes relacionados à questão fundiária que ingressam por ano? Qual o tempo de duração médio dessas ações? Quais as espécies de crime cometidas? Qual a efetividade da identificação da autoria e do cumprimento da pena?</li>
 </ol>
 <section id="objetivo" class="level2">
-<h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
+<h2>Objetivo</h2>
 <p>O presente relatório tem como objetivo responder às perguntas de pesquisa que podem ser investigadas do ponto de vista empírico-quantitativo. Por se tratar de um levantamento quantitativo, nem todas as questões podem ser endereçadas. Das 16 perguntas listadas acima, 7 foram efetivamente analisadas. Especificamente, as questões 1, 2, 5, 8, 12 e 14.</p>
 <p>É importante ressaltar que, na maioria dos casos, não é possível responder às perguntas de forma completa. Por ser um tema que está na intersecção de dois tipos processuais, a identificação dos processos nem sempre é possível, especialmente considerando como fonte as bases de informações básicas, partes e movimentações processuais, como é o caso do DataJud. Ainda assim, as análises podem servir como guia para investigações mais profundas.</p>
 </section>
@@ -125,7 +117,7 @@ div.csl-indent {
 <h1>Bases de dados</h1>
 <p>A análise considera três bases de processos, que chamamos de SireneJud, DataJud e TRF1. Descrevemos as bases de dados a seguir.</p>
 <section id="sirenejud" class="level2">
-<h2 class="anchored" data-anchor-id="sirenejud">SireneJud</h2>
+<h2>SireneJud</h2>
 <p>A base do SireneJud foi fornecida pelo CNJ, a partir de uma extração realizada no dia 26/10/2022. O arquivo foi fornecido no formato CSV, contendo 637.699 linhas e 37 colunas. Diferentes versões da base podem ser acessadas a partir do <a href="https://sirenejud.cnj.jus.br/mapa/geral">link de dados abertos da ferramenta do SireneJud</a>.</p>
 <p>A base de dados do SireneJud apresenta uma estrutura comum de bases de dados judiciais, contendo três unidades amostrais distintas: processos, partes e movimentações.</p>
 <p>O primeiro passo da análise foi realizar filtros para obter uma base mais próxima do escopo da pesquisa. Infelizmente, a base do SireneJud não permite a realização de filtros que identificam de forma precisa os casos relacionados à lavagem de bens e capitais em crimes ambientais. No entanto, a base auxilia no estudo da dinâmica de crimes ambientais, com diferentes níveis de profundidade.</p>
@@ -140,7 +132,7 @@ div.csl-indent {
 <p>Como resultado, a base ficou com 48.717 processos. A base foi utilizada na investigação das questões norteadoras 1, 2, 5, 8, 12 e 14.</p>
 </section>
 <section id="datajud" class="level2">
-<h2 class="anchored" data-anchor-id="datajud">DataJud</h2>
+<h2>DataJud</h2>
 <p>A base do DataJud também foi fornecida pelo CNJ, em dezembro de 2022. A base contém informações de processos relacionados à corrupção e lavagem de dinheiro, que podem ou não estarem ligados a crimes ambientais.</p>
 <p>A base de dados do DataJud apresenta uma estrutura similar à do SireneJud, com colunas comuns em bases de dados judiciais, mas agrega todas as informações ao nível de processo. Como efeito, as informações das partes e das movimentações são apresentadas de forma agregada (contagens de eventos ou partes).</p>
 <p>A base do DataJud também passou por alguns filtros antes de ser analisada:</p>
@@ -154,7 +146,7 @@ div.csl-indent {
 <p>Como resultado, a base ficou com 184.879 processos. A base foi utilizada na investigação das questões 1, 2, 5 e 12.</p>
 </section>
 <section id="trf1" class="level2">
-<h2 class="anchored" data-anchor-id="trf1">TRF1</h2>
+<h2>TRF1</h2>
 <p>A base do TRF1 foi obtida via raspagem de dados a partir do banco de decisões do TRF1. Raspagem de dados é um processo de extração de informações de fontes da web, como sites, APIs e arquivos, e armazenamento dos dados coletados em um formato estruturado, como uma planilha ou banco de dados. Esse processo é realizado com o uso de linguagens de programação, que automatizam a extração de dados da web.</p>
 <p>A raspagem de dados pode ser usada para coletar dados de várias fontes, sendo uma prática comum para acessar dados que são públicos, mas não são abertos, como é o caso da maior parte dos tribunais brasileiros. É importante destacar que a raspagem de dados só é necessária quando os dados não são abertos: os estudos seriam significativamente facilitados se os tribunais disponibilizassem os dados em formatos eletrônicos legíveis por máquina e não proprietários.</p>
 <p>A vantagem da base do TRF1 é que ela é obtida a partir da consulta de palavras-chave nos textos das decisões. Isso permite uma pesquisa mais focada, já que é possível buscar por termos relacionados a questões ambientais juntamente com termos relacionados a lavagem de bens e capitais ou corrupção.</p>
@@ -167,17 +159,17 @@ div.csl-indent {
 <p>A base grande do TRF1 foi utilizada para responder às questões 2, 5 e 14. Já a base pequena do TRF1 foi utilizada para responder à questão 1.</p>
 </section>
 <section id="limitações" class="level2">
-<h2 class="anchored" data-anchor-id="limitações">Limitações</h2>
+<h2>Limitações</h2>
 <p>Abaixo, explicamos os motivos de algumas questões não serem investigadas, total ou parcialmente, por conta das limitações das bases de dados. Além disso, mencionamos quais seriam os dados necessários para que as perguntas possam ser respondidas integralmente. É importante que muitas dessas informações não existem de forma estruturada no momento, podendo ser interpretadas como sugestões de melhorias dos dados públicos para utilização em estudos futuros.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table>
 <colgroup>
-<col style="width: 1%">
-<col style="width: 2%">
-<col style="width: 4%">
-<col style="width: 43%">
-<col style="width: 49%">
+<col style="width: 1%" />
+<col style="width: 2%" />
+<col style="width: 4%" />
+<col style="width: 43%" />
+<col style="width: 49%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -307,14 +299,14 @@ div.csl-indent {
 </div>
 </section>
 <section id="dashboard" class="level2">
-<h2 class="anchored" data-anchor-id="dashboard">Dashboard</h2>
+<h2>Dashboard</h2>
 <p>Para complementar as análises do presente relatório, um <a href="https://abjur.shinyapps.io/ambientalCNJ/">painel de análises estatísticas foi desenvolvido</a>. O painel apresenta informações que reforçam os achados da análise jurimétrica realizada. Por meio dos gráficos específicos disponibilizados no painel, é possível visualizar os dados relacionados aos processos ambientais aplicando filtros. Por exemplo, filtrando pelo TJAM, é possível obter os resultados da pesquisa (assuntos mais comuns, mapa e tempo dos processos) somente para o TJAM, como indicado na figura abaixo.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-dashboard1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="assets/img/dashboard1.png" class="img-fluid figure-img" width="818"></p>
-<figcaption class="figure-caption">Figura&nbsp;1: Filtro no dashboard da base SirejeJud em processos do TJAM.</figcaption>
+<div id="fig-dashboard1" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="assets/img/dashboard1.png" class="img-fluid" width="818" /></p>
+<figcaption>Figura 1: Filtro no dashboard da base SirejeJud em processos do TJAM.</figcaption>
 </figure>
 </div>
 </div>
@@ -322,10 +314,10 @@ div.csl-indent {
 <p>Outro filtro relevante é o de ano do processo, que permite identificar os padrões (tempo, assuntos, distribuição regional) no período selecionado. Essa informação é útil para compreender a distribuição temporal dos processos e pode auxiliar na identificação de períodos mais críticos. Ao relacionar esses dados com as respostas da análise descritiva, é possível fortalecer as conclusões sobre a distribuição dos processos e a atuação do sistema jurídico em diferentes localidades.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-dashboard2" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="assets/img/dashboard2.png" class="img-fluid figure-img" width="816"></p>
-<figcaption class="figure-caption">Figura&nbsp;2: Filtro no dashboard da base SirejeJud em processos entre 2011 e 2015.</figcaption>
+<div id="fig-dashboard2" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="assets/img/dashboard2.png" class="img-fluid" width="816" /></p>
+<figcaption>Figura 2: Filtro no dashboard da base SirejeJud em processos entre 2011 e 2015.</figcaption>
 </figure>
 </div>
 </div>
@@ -336,18 +328,18 @@ div.csl-indent {
 <h1>Análises</h1>
 <p>A seguir, apresentamos investigações sobre as questões norteadoras. Cada subseção é de uma das questões. As investigações mostram os resultados principais da análise descritiva.</p>
 <section id="questão-1" class="level2">
-<h2 class="anchored" data-anchor-id="questão-1">Questão 1</h2>
+<h2>Questão 1</h2>
 <p><strong>Questão</strong>: Quais são as atividades que conectam e alimentam a cadeia de fluxos de capitais que promovem o desmatamento?</p>
 <section id="sirenejud-1" class="level3">
-<h3 class="anchored" data-anchor-id="sirenejud-1">SireneJud</h3>
+<h3>SireneJud</h3>
 <p>O SireneJud oferece informações limitadas sobre essa questão. As informações disponíveis na base que podem trazer insumos são os assuntos dos processos e a localização dos processos.</p>
 <p>Do total de 48717 processos, 38848 (80%) são estaduais. Dentre os processos estaduais, o tribunal mais comum é o TJMT, com 12665 (32.6%) dos processos estaduais.</p>
-<p>As 10 classes mais comuns dos processos estão na <a href="#tbl-classe">Tabela&nbsp;1</a>. A classe com maior volume de processos é a ação civil pública. Essa classe geralmente não é a mais frequente em análises de processos, sendo uma característica específica desta base de dados.</p>
+<p>As 10 classes mais comuns dos processos estão na <a href="#tbl-classe">Tabela 1</a>. A classe com maior volume de processos é a ação civil pública. Essa classe geralmente não é a mais frequente em análises de processos, sendo uma característica específica desta base de dados.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-classe" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;1: Dez classes mais comuns.</caption>
+<div id="tbl-classe">
+<table>
+<caption>Tabela 1: Dez classes mais comuns.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Classe</th>
@@ -421,12 +413,12 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Os 10 assuntos mais comuns estão na <a href="#tbl-assunto">Tabela&nbsp;2</a>. É possível notar que assuntos genéricos como “Dano Ambiental” e “Flora” estão bastante presentes nos dados. Por isso, é difícil medir quais são as atividades que conectam e alimentam a cadeia de fluxos de capitais que promovem o desmatamento apenas com essa informação.</p>
+<p>Os 10 assuntos mais comuns estão na <a href="#tbl-assunto">Tabela 2</a>. É possível notar que assuntos genéricos como “Dano Ambiental” e “Flora” estão bastante presentes nos dados. Por isso, é difícil medir quais são as atividades que conectam e alimentam a cadeia de fluxos de capitais que promovem o desmatamento apenas com essa informação.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-assunto" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;2: Dez assuntos mais comuns. Um processo pode ter mais de um assunto.</caption>
+<div id="tbl-assunto">
+<table>
+<caption>Tabela 2: Dez assuntos mais comuns. Um processo pode ter mais de um assunto.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Assunto</th>
@@ -500,23 +492,23 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A <a href="#fig-mapa">Figura&nbsp;3</a> mostra os pontos em que os processos foram distribuídos. Os pontos fora da área demarcada indicam processos do Maranhão que estão fora da Amazônia Legal. Os cinco municípios com mais processos são: Cuiabá, Porto Velho, Belém, Manaus e Altamira.</p>
+<p>A <a href="#fig-mapa">Figura 3</a> mostra os pontos em que os processos foram distribuídos. Os pontos fora da área demarcada indicam processos do Maranhão que estão fora da Amazônia Legal. Os cinco municípios com mais processos são: Cuiabá, Porto Velho, Belém, Manaus e Altamira.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-mapa" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-mapa-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figura&nbsp;3: Pontos de distribuição dos processos</figcaption>
+<div id="fig-mapa" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-mapa-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figura 3: Pontos de distribuição dos processos</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>A <a href="#tbl-municipios">Tabela&nbsp;3</a> mostra os 10 municípios com mais processos. A maioria são capitais, o que é esperado, já que são municípios mais populosos.</p>
+<p>A <a href="#tbl-municipios">Tabela 3</a> mostra os 10 municípios com mais processos. A maioria são capitais, o que é esperado, já que são municípios mais populosos.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-municipios" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;3: Municípios com mais processos.</caption>
+<div id="tbl-municipios">
+<table>
+<caption>Tabela 3: Municípios com mais processos.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Município/UF</th>
@@ -590,12 +582,12 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A <a href="#tbl-ilg">Tabela&nbsp;4</a> mostra os municípios com maior litigiosidade (processos por 100 mil habitantes). É possível identificar que vários municípios pequenos (com menos de 10 mil habitantes) figuram entre os mais litigiosos.</p>
+<p>A <a href="#tbl-ilg">Tabela 4</a> mostra os municípios com maior litigiosidade (processos por 100 mil habitantes). É possível identificar que vários municípios pequenos (com menos de 10 mil habitantes) figuram entre os mais litigiosos.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-ilg" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;4: Municípios com mais litigiosidade, considerando população do Censo IBGE de 2010.</caption>
+<div id="tbl-ilg">
+<table>
+<caption>Tabela 4: Municípios com mais litigiosidade, considerando população do Censo IBGE de 2010.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Município/UF</th>
@@ -659,12 +651,12 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A <a href="#tbl-ilg-50k">Tabela&nbsp;5</a> mostra os municípios com maior litigiosidade, considerando somente municípios com mais de 50 mil habitantes. Novamente aparecem algumas capitais e figuram entre os mais litigiosos o município de Altamira, que é o município com maior área no país.</p>
+<p>A <a href="#tbl-ilg-50k">Tabela 5</a> mostra os municípios com maior litigiosidade, considerando somente municípios com mais de 50 mil habitantes. Novamente aparecem algumas capitais e figuram entre os mais litigiosos o município de Altamira, que é o município com maior área no país.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-ilg-50k" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;5: Municípios com mais litigiosidade.</caption>
+<div id="tbl-ilg-50k">
+<table>
+<caption>Tabela 5: Municípios com mais litigiosidade.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Município/UF</th>
@@ -728,12 +720,12 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A análise anterior sugere que seja realizado de quantidade de processos por 1000km² de área do município. A <a href="#tbl-ila-50k">Tabela&nbsp;6</a> mostra os municípios com maior litigiosidade por área, considerando somente municípios com mais de 5000 km² de área. Novamente aparecem algumas capitais e figura entre os mais litigiosos o município de Cuiabá.</p>
+<p>A análise anterior sugere que seja realizado de quantidade de processos por 1000km² de área do município. A <a href="#tbl-ila-50k">Tabela 6</a> mostra os municípios com maior litigiosidade por área, considerando somente municípios com mais de 5000 km² de área. Novamente aparecem algumas capitais e figura entre os mais litigiosos o município de Cuiabá.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-ila-50k" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;6: Municípios com maiores taxas de processos por mil quilômetros quadrados.</caption>
+<div id="tbl-ila-50k">
+<table>
+<caption>Tabela 6: Municípios com maiores taxas de processos por mil quilômetros quadrados.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Município/UF</th>
@@ -797,27 +789,27 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Uma análise de interesse é correlacionar a litigiosidade com o desmatamento. Para isso, foi obtida uma base do sistema PRODES, de onde é possível calcular o percentual de área desmatada com relação à área total do município. Tais dados foram confrontados com o índice de litigiosidade (casos novos por 100.000 habitantes). O resultado é a <a href="#fig-ilg-desmatamento-sirenejud">Figura&nbsp;4</a>, mostrando que as quantidades não são correlacionadas.</p>
+<p>Uma análise de interesse é correlacionar a litigiosidade com o desmatamento. Para isso, foi obtida uma base do sistema PRODES, de onde é possível calcular o percentual de área desmatada com relação à área total do município. Tais dados foram confrontados com o índice de litigiosidade (casos novos por 100.000 habitantes). O resultado é a <a href="#fig-ilg-desmatamento-sirenejud">Figura 4</a>, mostrando que as quantidades não são correlacionadas.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-ilg-desmatamento-sirenejud" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-ilg-desmatamento-sirenejud-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figura&nbsp;4: Gráfico de dispersão mostrando a relação entre a litigiosidade e o percentual de desmatamento do município.</figcaption>
+<div id="fig-ilg-desmatamento-sirenejud" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-ilg-desmatamento-sirenejud-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figura 4: Gráfico de dispersão mostrando a relação entre a litigiosidade e o percentual de desmatamento do município.</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <section id="segundo-grau" class="level4">
-<h4 class="anchored" data-anchor-id="segundo-grau">Segundo grau</h4>
+<h4>Segundo grau</h4>
 <p>Abaixo, repetimos algumas análises considerando a base do segundo grau do SireneJud. A base foi construída utilizando os mesmos filtros que a base do primeiro grau, moficiando apenas o filtro da instância.</p>
 <p>Do total de 6434 processos, 6434 (100%) são estaduais. Dentre os processos estaduais, o tribunal mais comum é o TJPA, com 2420 (37.6%) dos processos estaduais.</p>
-<p>As 10 classes mais comuns dos processos estão na <a href="#tbl-classe-2grau">Tabela&nbsp;7</a>. A classe com maior volume de processos é a apelação cível, seguida por agravos de instrumento. As classes fazem sentido, considerando que o segundo grau costuma ser formado basicamente de apelações e agravos.</p>
+<p>As 10 classes mais comuns dos processos estão na <a href="#tbl-classe-2grau">Tabela 7</a>. A classe com maior volume de processos é a apelação cível, seguida por agravos de instrumento. As classes fazem sentido, considerando que o segundo grau costuma ser formado basicamente de apelações e agravos.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-classe-2grau" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;7: Dez classes mais comuns no segundo grau.</caption>
+<div id="tbl-classe-2grau">
+<table>
+<caption>Tabela 7: Dez classes mais comuns no segundo grau.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Classe</th>
@@ -891,12 +883,12 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Os 10 assuntos mais comuns estão na <a href="#tbl-assunto-2grau">Tabela&nbsp;8</a>. É possível notar que assuntos genéricos como “Dano Ambiental” continuam bastante presentes nos dados. Por isso, é difícil medir quais são as atividades que conectam e alimentam a cadeia de fluxos de capitais que promovem o desmatamento apenas com essa informação.</p>
+<p>Os 10 assuntos mais comuns estão na <a href="#tbl-assunto-2grau">Tabela 8</a>. É possível notar que assuntos genéricos como “Dano Ambiental” continuam bastante presentes nos dados. Por isso, é difícil medir quais são as atividades que conectam e alimentam a cadeia de fluxos de capitais que promovem o desmatamento apenas com essa informação.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-assunto-2grau" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;8: Dez assuntos mais comuns no segundo grau. Um processo pode ter mais de um assunto.</caption>
+<div id="tbl-assunto-2grau">
+<table>
+<caption>Tabela 8: Dez assuntos mais comuns no segundo grau. Um processo pode ter mais de um assunto.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Assunto</th>
@@ -970,12 +962,12 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A <a href="#tbl-tribunais-2grau">Tabela&nbsp;9</a> mostra os tribunais que mais aparecem no segundo grau. Pará e Mato Grosso figuram entre os mais frequentes.</p>
+<p>A <a href="#tbl-tribunais-2grau">Tabela 9</a> mostra os tribunais que mais aparecem no segundo grau. Pará e Mato Grosso figuram entre os mais frequentes.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-tribunais-2grau" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;9: Tribunais mais comuns nos processos de segundo grau.</caption>
+<div id="tbl-tribunais-2grau">
+<table>
+<caption>Tabela 9: Tribunais mais comuns nos processos de segundo grau.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">UF</th>
@@ -1042,18 +1034,18 @@ div.csl-indent {
 </section>
 </section>
 <section id="datajud-1" class="level3">
-<h3 class="anchored" data-anchor-id="datajud-1">DataJud</h3>
+<h3>DataJud</h3>
 <p>Com relação ao DataJud, a única análise de interesse é nos assuntos dos processos. Ainda assim, a análise é bastante limitada, já que não possui o filtro de processos ambientais. Pode-se dizer, apenas, que nas regiões estudadas esses são os tipos de processos mais comuns.</p>
-<p>A <a href="#tbl-assuntos-datajud">Tabela&nbsp;10</a> mostra os assuntos mais comuns dos processos. É possível notar que assuntos relacionados a tráfico de drogas são os mais frequentes, seguidos de peculato e quadrilha/bando.</p>
+<p>A <a href="#tbl-assuntos-datajud">Tabela 10</a> mostra os assuntos mais comuns dos processos. É possível notar que assuntos relacionados a tráfico de drogas são os mais frequentes, seguidos de peculato e quadrilha/bando.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-assuntos-datajud" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;10: Assuntos com mais processos.</caption>
+<div id="tbl-assuntos-datajud">
+<table>
+<caption>Tabela 10: Assuntos com mais processos.</caption>
 <colgroup>
-<col style="width: 86%">
-<col style="width: 6%">
-<col style="width: 6%">
+<col style="width: 86%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1133,23 +1125,23 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A <a href="#fig-mapa-datajud">Figura&nbsp;5</a> mostra os pontos em que os processos foram distribuídos. Os pontos fora da área demarcada indicam processos do Maranhão que estão fora da Amazônia Legal. Os cinco municípios com mais processos são: Belém, Boa Vista, São Luís, Rio Branco e Manaus.</p>
+<p>A <a href="#fig-mapa-datajud">Figura 5</a> mostra os pontos em que os processos foram distribuídos. Os pontos fora da área demarcada indicam processos do Maranhão que estão fora da Amazônia Legal. Os cinco municípios com mais processos são: Belém, Boa Vista, São Luís, Rio Branco e Manaus.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-mapa-datajud" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-mapa-datajud-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figura&nbsp;5: Pontos de distribuição dos processos</figcaption>
+<div id="fig-mapa-datajud" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-mapa-datajud-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figura 5: Pontos de distribuição dos processos</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>A <a href="#tbl-municipios-datajud">Tabela&nbsp;11</a> mostra os 10 municípios com mais processos. A maioria são capitais, o que é esperado, já que são municípios mais populosos.</p>
+<p>A <a href="#tbl-municipios-datajud">Tabela 11</a> mostra os 10 municípios com mais processos. A maioria são capitais, o que é esperado, já que são municípios mais populosos.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-municipios-datajud" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;11: Municípios com mais processos.</caption>
+<div id="tbl-municipios-datajud">
+<table>
+<caption>Tabela 11: Municípios com mais processos.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Município/UF</th>
@@ -1223,12 +1215,12 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A <a href="#tbl-ilg-datajud">Tabela&nbsp;12</a> mostra os municípios com maior litigiosidade (processos por 100 mil habitantes). É possível identificar que vários municípios pequenos (com menos de 10 mil habitantes) figuram entre os mais litigiosos.</p>
+<p>A <a href="#tbl-ilg-datajud">Tabela 12</a> mostra os municípios com maior litigiosidade (processos por 100 mil habitantes). É possível identificar que vários municípios pequenos (com menos de 10 mil habitantes) figuram entre os mais litigiosos.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-ilg-datajud" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;12: Municípios com mais litigiosidade. Considerada população do Censo IBGE de 2010.</caption>
+<div id="tbl-ilg-datajud">
+<table>
+<caption>Tabela 12: Municípios com mais litigiosidade. Considerada população do Censo IBGE de 2010.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Município/UF</th>
@@ -1292,12 +1284,12 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A <a href="#tbl-ilg-50k-datajud">Tabela&nbsp;13</a> mostra os municípios com maior litigiosidade, considerando somente municípios com mais de 50 mil habitantes. Novamente aparecem algumas capitais e figuram entre os mais litigiosos o município de Cáceres/MT.</p>
+<p>A <a href="#tbl-ilg-50k-datajud">Tabela 13</a> mostra os municípios com maior litigiosidade, considerando somente municípios com mais de 50 mil habitantes. Novamente aparecem algumas capitais e figuram entre os mais litigiosos o município de Cáceres/MT.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-ilg-50k-datajud" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;13: Municípios com mais litigiosidade.</caption>
+<div id="tbl-ilg-50k-datajud">
+<table>
+<caption>Tabela 13: Municípios com mais litigiosidade.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Município/UF</th>
@@ -1361,12 +1353,12 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A <a href="#tbl-ila-50k-datajud">Tabela&nbsp;14</a> mostra os municípios com maior litigiosidade por área, considerando somente municípios com mais de 5000 km² de área. Novamente aparecem algumas capitais e figura entre os mais litigiosos o município de Cuiabá.</p>
+<p>A <a href="#tbl-ila-50k-datajud">Tabela 14</a> mostra os municípios com maior litigiosidade por área, considerando somente municípios com mais de 5000 km² de área. Novamente aparecem algumas capitais e figura entre os mais litigiosos o município de Cuiabá.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-ila-50k-datajud" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;14: Municípios com maiores taxas de processos por mil quilômetros quadrados.</caption>
+<div id="tbl-ila-50k-datajud">
+<table>
+<caption>Tabela 14: Municípios com maiores taxas de processos por mil quilômetros quadrados.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Município/UF</th>
@@ -1430,30 +1422,30 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Uma análise de interesse é correlacionar a litigiosidade com o desmatamento. Para isso, foi obtida uma base do sistema PRODES, de onde é possível calcular o percentual de área desmatada com relação à área total do município. O resultado é a <a href="#fig-ilg-desmatamento-datajud">Figura&nbsp;6</a>, que mostra que as quantidades não são correlacionadas.</p>
+<p>Uma análise de interesse é correlacionar a litigiosidade com o desmatamento. Para isso, foi obtida uma base do sistema PRODES, de onde é possível calcular o percentual de área desmatada com relação à área total do município. O resultado é a <a href="#fig-ilg-desmatamento-datajud">Figura 6</a>, que mostra que as quantidades não são correlacionadas.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-ilg-desmatamento-datajud" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-ilg-desmatamento-datajud-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figura&nbsp;6: Gráfico de dispersão mostrando a relação entre a litigiosidade e o percentual de desmatamento do município.</figcaption>
+<div id="fig-ilg-desmatamento-datajud" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-ilg-desmatamento-datajud-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figura 6: Gráfico de dispersão mostrando a relação entre a litigiosidade e o percentual de desmatamento do município.</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <section id="segundo-grau-1" class="level4">
-<h4 class="anchored" data-anchor-id="segundo-grau-1">Segundo grau</h4>
+<h4>Segundo grau</h4>
 <p>Abaixo, repetimos algumas análises considerando a base do segundo grau do DataJud. A base foi construída utilizando os mesmos filtros que a base do primeiro grau, moficiando apenas o filtro da instância.</p>
-<p>Os 10 assuntos mais comuns estão na <a href="#tbl-assunto-datajud-2grau">Tabela&nbsp;15</a>. Assuntos relacionados a tráfico de drogas são os mais frequentes, seguidos de quadrilha ou bando, mas com um percentual bem menor.</p>
+<p>Os 10 assuntos mais comuns estão na <a href="#tbl-assunto-datajud-2grau">Tabela 15</a>. Assuntos relacionados a tráfico de drogas são os mais frequentes, seguidos de quadrilha ou bando, mas com um percentual bem menor.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-assunto-datajud-2grau" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;15: Dez assuntos mais comuns no segundo grau. Um processo pode ter mais de um assunto.</caption>
+<div id="tbl-assunto-datajud-2grau">
+<table>
+<caption>Tabela 15: Dez assuntos mais comuns no segundo grau. Um processo pode ter mais de um assunto.</caption>
 <colgroup>
-<col style="width: 87%">
-<col style="width: 5%">
-<col style="width: 6%">
+<col style="width: 87%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1528,12 +1520,12 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A <a href="#tbl-tribunais-datajud-2grau">Tabela&nbsp;16</a> mostra os tribunais que mais aparecem no segundo grau. Assim como no SireneJud, Pará e Mato Grosso figuram entre os mais frequentes.</p>
+<p>A <a href="#tbl-tribunais-datajud-2grau">Tabela 16</a> mostra os tribunais que mais aparecem no segundo grau. Assim como no SireneJud, Pará e Mato Grosso figuram entre os mais frequentes.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-tribunais-datajud-2grau" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;16: Tribunais mais comuns nos processos de segundo grau.</caption>
+<div id="tbl-tribunais-datajud-2grau">
+<table>
+<caption>Tabela 16: Tribunais mais comuns nos processos de segundo grau.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">UF</th>
@@ -1600,14 +1592,14 @@ div.csl-indent {
 </section>
 </section>
 <section id="trf1-1" class="level3">
-<h3 class="anchored" data-anchor-id="trf1-1">TRF1</h3>
+<h3>TRF1</h3>
 <p>A análise no TRF1 foi baseada na quantidade e proporção de casos que apareceram nas consultas de processos. Apesar de ser mais curta, a análise pode dar informações um pouco mais relevantes do que as análises anteriores, que se baseiam apenas em estatísticas gerais.</p>
-<p>A <a href="#tbl-tema-trf1">Tabela&nbsp;17</a> mostra as atividades com maior volume processual na base pequena do TRF1. É possível notar que o desmatamento é a atividade que mais aparece na consulta, seguida por garimpo.</p>
+<p>A <a href="#tbl-tema-trf1">Tabela 17</a> mostra as atividades com maior volume processual na base pequena do TRF1. É possível notar que o desmatamento é a atividade que mais aparece na consulta, seguida por garimpo.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-tema-trf1" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;17: Atividades com maior volume processual no TRF1.</caption>
+<div id="tbl-tema-trf1">
+<table>
+<caption>Tabela 17: Atividades com maior volume processual no TRF1.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Tema</th>
@@ -1653,21 +1645,21 @@ div.csl-indent {
 </div>
 </section>
 <section id="discussão" class="level3">
-<h3 class="anchored" data-anchor-id="discussão">Discussão</h3>
+<h3>Discussão</h3>
 <p>As análises mostradas acima são apenas um guia para responder à questão norteadora. Os resultados indicam que a atividade mais comum é o desmatamento, seguida pelo garimpo. Além disso, as análises do DataJud e SireneJud, apesar de limitadas, mostram regiões e assuntos processuais que podem estar relacionados ao tema de interesse.</p>
 </section>
 </section>
 <section id="questão-2" class="level2">
-<h2 class="anchored" data-anchor-id="questão-2">Questão 2</h2>
+<h2>Questão 2</h2>
 <p><strong>Questão</strong>: Quem são os atores envolvidos nos casos de lavagem de dinheiro e corrupção relacionados a crimes ambientais?</p>
 <section id="sirenejud-2" class="level3">
-<h3 class="anchored" data-anchor-id="sirenejud-2">SireneJud</h3>
-<p>A <a href="#tbl-tipo-pessoa">Tabela&nbsp;18</a> mostra os tipos de pessoas que estão no polo passivo. A maior parte é de pessoas físicas, sendo que quase 2% da base possui autoridades, órgão de representação ou valores vazios.</p>
+<h3>SireneJud</h3>
+<p>A <a href="#tbl-tipo-pessoa">Tabela 18</a> mostra os tipos de pessoas que estão no polo passivo. A maior parte é de pessoas físicas, sendo que quase 2% da base possui autoridades, órgão de representação ou valores vazios.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-tipo-pessoa" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;18: Tipos de pessoas</caption>
+<div id="tbl-tipo-pessoa">
+<table>
+<caption>Tabela 18: Tipos de pessoas</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Tipo de pessoa</th>
@@ -1707,16 +1699,16 @@ div.csl-indent {
 </div>
 </div>
 <p>Vamos analisar apenas as pessoas jurídicas. Dentre as partes, aproximadamente 4% têm CNPJ vazio e 96% preenchido. No total, são cerca de 8000 CNPJs distintos e com 14 dígitos, que foram pesquisados na base de dados abertos da Receita Federal do Brasil (RFB). Quase a totalidade (99%) foram encontrados. Alguns resultados disso foram colocados a seguir.</p>
-<p>A <a href="#tbl-litigantes-passivo">Tabela&nbsp;19</a> mostra os quinze maiores litigantes no polo passivo. O nome que mais aparece é o vazio, que são casos em que o campo do CNPJ está vazio. Outros nomes da lista não fazem muito sentido estarem no polo passivo. Das empresas privadas, destacam-se as empresas de energia.</p>
+<p>A <a href="#tbl-litigantes-passivo">Tabela 19</a> mostra os quinze maiores litigantes no polo passivo. O nome que mais aparece é o vazio, que são casos em que o campo do CNPJ está vazio. Outros nomes da lista não fazem muito sentido estarem no polo passivo. Das empresas privadas, destacam-se as empresas de energia.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-litigantes-passivo" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;19: 10 Maiores litigantes nos processos</caption>
+<div id="tbl-litigantes-passivo">
+<table>
+<caption>Tabela 19: 10 Maiores litigantes nos processos</caption>
 <colgroup>
-<col style="width: 62%">
-<col style="width: 27%">
-<col style="width: 9%">
+<col style="width: 62%" />
+<col style="width: 27%" />
+<col style="width: 9%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1806,16 +1798,16 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A <a href="#tbl-litigantes-ativo">Tabela&nbsp;20</a> mostra os quinze maiores litigantes no polo ativo. Como esperado, figuram entre os maiores litigantes os ministérios públicos e procuradorias.</p>
+<p>A <a href="#tbl-litigantes-ativo">Tabela 20</a> mostra os quinze maiores litigantes no polo ativo. Como esperado, figuram entre os maiores litigantes os ministérios públicos e procuradorias.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-litigantes-ativo" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;20: 10 Maiores litigantes nos processos</caption>
+<div id="tbl-litigantes-ativo">
+<table>
+<caption>Tabela 20: 10 Maiores litigantes nos processos</caption>
 <colgroup>
-<col style="width: 65%">
-<col style="width: 25%">
-<col style="width: 8%">
+<col style="width: 65%" />
+<col style="width: 25%" />
+<col style="width: 8%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1905,16 +1897,16 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A <a href="#tbl-cnae">Tabela&nbsp;21</a> mostra as atividades principais das empresas no polo passivo, de acordo com a informação da “Classe” da tabela CNAE. Os casos de “administração pública em geral” provavelmente se referem a diferentes entidades públicas.</p>
+<p>A <a href="#tbl-cnae">Tabela 21</a> mostra as atividades principais das empresas no polo passivo, de acordo com a informação da “Classe” da tabela CNAE. Os casos de “administração pública em geral” provavelmente se referem a diferentes entidades públicas.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-cnae" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;21: Quantidade de partes-processos por tipo de atividade.</caption>
+<div id="tbl-cnae">
+<table>
+<caption>Tabela 21: Quantidade de partes-processos por tipo de atividade.</caption>
 <colgroup>
-<col style="width: 86%">
-<col style="width: 5%">
-<col style="width: 7%">
+<col style="width: 86%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1981,17 +1973,17 @@ div.csl-indent {
 </div>
 </section>
 <section id="datajud-2" class="level3">
-<h3 class="anchored" data-anchor-id="datajud-2">DataJud</h3>
+<h3>DataJud</h3>
 <p>A base do DataJud não disponibiliza nome nem CNPJ das partes, o que impossibilita análises sobre perfil das partes.</p>
 </section>
 <section id="trf1-2" class="level3">
-<h3 class="anchored" data-anchor-id="trf1-2">TRF1</h3>
-<p>A base do TRF1 não disponibiliza o CNPJ das partes, o que impossibilita a realização de análises mais aprofundadas. A única análise feita foi dos maiores litigantes no polo passivo, listados na <a href="#tbl-litigantes-trf1">Tabela&nbsp;22</a>. As formas de participação para determinar as partes no polo passivo foram: “réu”, “requerido”, “executado” e “impetrado”. Os nomes passaram por um processo de padronização, mas ainda podem estar com problemas de taxonomia.</p>
+<h3>TRF1</h3>
+<p>A base do TRF1 não disponibiliza o CNPJ das partes, o que impossibilita a realização de análises mais aprofundadas. A única análise feita foi dos maiores litigantes no polo passivo, listados na <a href="#tbl-litigantes-trf1">Tabela 22</a>. As formas de participação para determinar as partes no polo passivo foram: “réu”, “requerido”, “executado” e “impetrado”. Os nomes passaram por um processo de padronização, mas ainda podem estar com problemas de taxonomia.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-litigantes-trf1" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;22: Lista dos maiores litigantes no polo passivo, no TRF1 (base grande).</caption>
+<div id="tbl-litigantes-trf1">
+<table>
+<caption>Tabela 22: Lista dos maiores litigantes no polo passivo, no TRF1 (base grande).</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Nome</th>
@@ -2050,16 +2042,16 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A <a href="#tbl-litigantes-trf1-ativo">Tabela&nbsp;23</a> mostra os maiores litigantes no polo ativo. As formas de participação para determinar as partes no polo ativo foram: “autor”, “requerente”, “exequente” e “impetrante”. Os nomes passaram por um processo de padronização, mas ainda podem estar com problemas de taxonomia.</p>
+<p>A <a href="#tbl-litigantes-trf1-ativo">Tabela 23</a> mostra os maiores litigantes no polo ativo. As formas de participação para determinar as partes no polo ativo foram: “autor”, “requerente”, “exequente” e “impetrante”. Os nomes passaram por um processo de padronização, mas ainda podem estar com problemas de taxonomia.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tbl-litigantes-trf1-ativo" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabela&nbsp;23: Lista dos maiores litigantes no polo ativo, no TRF1 (base grande).</caption>
+<div id="tbl-litigantes-trf1-ativo">
+<table>
+<caption>Tabela 23: Lista dos maiores litigantes no polo ativo, no TRF1 (base grande).</caption>
 <colgroup>
-<col style="width: 84%">
-<col style="width: 7%">
-<col style="width: 8%">
+<col style="width: 84%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2121,227 +2113,221 @@ div.csl-indent {
 </div>
 </section>
 <section id="discussão-1" class="level3">
-<h3 class="anchored" data-anchor-id="discussão-1">Discussão</h3>
+<h3>Discussão</h3>
 <p>A análise do SireneJud indica que empresas de energia são as mais comuns em processos de crime ambiental na região. Já a análise do DataJud não foi possível. Por fim, a análise do TRF1 mostra majoritariamente a União e órgãos como IBAMA, INCRA e FUNAI no polo passivo.</p>
 </section>
 </section>
 <section id="questão-5" class="level2">
-<h2 class="anchored" data-anchor-id="questão-5">Questão 5</h2>
+<h2>Questão 5</h2>
 <p><strong>Questão</strong>: Existem padrões identificáveis nos casos judicializados quanto às circunstâncias, características dos autores, modalidades e tipos de crimes ambientais?</p>
 <section id="discussão-2" class="level3">
-<h3 class="anchored" data-anchor-id="discussão-2">Discussão</h3>
+<h3>Discussão</h3>
 <p>Esta questão foi discutida nas análises das questões 1 e 2.</p>
 </section>
 </section>
 <section id="questão-8" class="level2">
-<h2 class="anchored" data-anchor-id="questão-8">Questão 8</h2>
+<h2>Questão 8</h2>
 <p><strong>Questão</strong>: Quais os principais segmentos econômicos ou grupos empresariais que estão envolvidos na cadeia de produção que tenha alguma relação com crime ambiental (indústria de equipamentos pesados, maquinário agrícola, maquinário de mineração, táxi aéreo, bancos e instituições financeiras de fomento agrícola, leasing)?</p>
 <section id="discussão-3" class="level3">
-<h3 class="anchored" data-anchor-id="discussão-3">Discussão</h3>
-<p>Esta questão foi discutida na análise da questão 2. A <a href="#tbl-cnae">Tabela&nbsp;21</a> mostra que os tipos empresariais mais comuns no polo passivo são empresas de energia, metalurgia e desdobramento de madeira, além de comércio de ferragens e transporte de carga.</p>
+<h3>Discussão</h3>
+<p>Esta questão foi discutida na análise da questão 2. A <a href="#tbl-cnae">Tabela 21</a> mostra que os tipos empresariais mais comuns no polo passivo são empresas de energia, metalurgia e desdobramento de madeira, além de comércio de ferragens e transporte de carga.</p>
 </section>
 </section>
 <section id="questão-12" class="level2">
-<h2 class="anchored" data-anchor-id="questão-12">Questão 12</h2>
+<h2>Questão 12</h2>
 <p><strong>Questão</strong>: Há correlação entre a incidência de crimes contra a vida ou ameaça em regiões de alta ocorrência de desmatamento, ou mineração ilegal ou crimes ambientais em geral?</p>
 <p>Uma possibilidade de análise é comparar índices de homicídios pela população do município com a litigiosidade do município. Para isso, vamos utilizar dados do Sistema Nacional de Informações de Segurança Pública, Prisionais, de Rastreabilidade de Armas e Munições, de Material Genético, de Digitais e de Drogas (SINESP).</p>
 <p>O SINESP por município mostra somente as informações de homicídios dolosos. Ou seja, a base não envolve casos de ameaça. Consideramos o ano de 2021 como referência, que é o ano mais recente com informações completas. A taxa de criminalidade do município foi calculada fazendo-se a razão do número de vítimas por habitante, utilizando os dados de população do Censo de 2010.</p>
 <section id="sirenejud-3" class="level3">
-<h3 class="anchored" data-anchor-id="sirenejud-3">SireneJud</h3>
-<p>A <a href="#fig-dispersao-crim-sirenejud">Figura&nbsp;7</a> mostra um gráfico de dispersão da taxa de criminalidade comparada com a litigiosidade dos municípios, considerando a base do SireneJud como fonte. Aparentemente, não existe uma relação clara entre as duas quantidades.</p>
+<h3>SireneJud</h3>
+<p>A <a href="#fig-dispersao-crim-sirenejud">Figura 7</a> mostra um gráfico de dispersão da taxa de criminalidade comparada com a litigiosidade dos municípios, considerando a base do SireneJud como fonte. Aparentemente, não existe uma relação clara entre as duas quantidades.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-dispersao-crim-sirenejud" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-dispersao-crim-sirenejud-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figura&nbsp;7: Gráfico de dispersão da taxa de homicídios e litigiosidade.</figcaption>
+<div id="fig-dispersao-crim-sirenejud" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-dispersao-crim-sirenejud-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figura 7: Gráfico de dispersão da taxa de homicídios e litigiosidade.</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="datajud-3" class="level3">
-<h3 class="anchored" data-anchor-id="datajud-3">DataJud</h3>
-<p>A <a href="#fig-dispersao-crim-datajud">Figura&nbsp;8</a> mostra um gráfico de dispersão da taxa de criminalidade comparada com a litigiosidade dos municípios, considerando a base do DataJud como fonte. Aparentemente, também não existe uma relação clara entre as duas quantidades.</p>
+<h3>DataJud</h3>
+<p>A <a href="#fig-dispersao-crim-datajud">Figura 8</a> mostra um gráfico de dispersão da taxa de criminalidade comparada com a litigiosidade dos municípios, considerando a base do DataJud como fonte. Aparentemente, também não existe uma relação clara entre as duas quantidades.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-dispersao-crim-datajud" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-dispersao-crim-datajud-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figura&nbsp;8: Gráfico de dispersão da taxa de homicídios e litigiosidade.</figcaption>
+<div id="fig-dispersao-crim-datajud" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-dispersao-crim-datajud-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figura 8: Gráfico de dispersão da taxa de homicídios e litigiosidade.</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="trf1-3" class="level3">
-<h3 class="anchored" data-anchor-id="trf1-3">TRF1</h3>
+<h3>TRF1</h3>
 <p>O TRF1 não possui informações de município. Seria possível realizar uma análise a partir dos últimos quatro dígitos dos números dos processos, mas seria uma análise muito limitada. Como as outras bases já não mostraram indícios de relação, decidimos por não realizar essa análise.</p>
 </section>
 <section id="discussão-4" class="level3">
-<h3 class="anchored" data-anchor-id="discussão-4">Discussão</h3>
+<h3>Discussão</h3>
 <p>Nas análises realizadas, não foi identificada uma relação entre índice de homicídios e litigiosidade.</p>
 </section>
 </section>
 <section id="questão-14" class="level2">
-<h2 class="anchored" data-anchor-id="questão-14">Questão 14</h2>
+<h2>Questão 14</h2>
 <p><strong>Questão</strong>: Qual o tempo de duração médio das ações criminais que envolvam a temática ambiental?</p>
 <p>Como temos processos em andamento, a forma adequada de analisar os tempos é utilizando análise de sobrevivência <span class="citation" data-cites="colosimoAnaliseSobrevivenciaAplicada2006">(<a href="#ref-colosimoAnaliseSobrevivenciaAplicada2006" role="doc-biblioref">Colosimo e Giolo 2006</a>)</span>. Faremos isso utilizando gráficos descritivos de Kaplan Meier.</p>
 <section id="sirenejud-4" class="level3">
-<h3 class="anchored" data-anchor-id="sirenejud-4">SireneJud</h3>
-<p>O resultado geral é mostrado na <a href="#fig-km">Figura&nbsp;9</a>. Foram retirados tempos maiores de 10 mil dias e tempos menores que zero. A mediana é de aproximadamente 81 meses, ou seja, quase 7 anos.</p>
+<h3>SireneJud</h3>
+<p>O resultado geral é mostrado na <a href="#fig-km">Figura 9</a>. Foram retirados tempos maiores de 10 mil dias e tempos menores que zero. A mediana é de aproximadamente 81 meses, ou seja, quase 7 anos.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-km" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-km-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figura&nbsp;9: Curva de sobrevivência dos tempos de tramitação dos processos</figcaption>
+<div id="fig-km" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-km-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figura 9: Curva de sobrevivência dos tempos de tramitação dos processos</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>A <a href="#fig-km-assunto">Figura&nbsp;10</a> mostra a distribuição dos tempos por assunto, considerando os cinco assuntos com maior volume de processos. As curvas são parecidas em forma e apresentam medianas similares.</p>
+<p>A <a href="#fig-km-assunto">Figura 10</a> mostra a distribuição dos tempos por assunto, considerando os cinco assuntos com maior volume de processos. As curvas são parecidas em forma e apresentam medianas similares.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-km-assunto" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-km-assunto-1.png" class="img-fluid figure-img" width="864"></p>
-<figcaption class="figure-caption">Figura&nbsp;10: Curva de sobrevivência dos tempos de tramitação dos processos, por assunto</figcaption>
+<div id="fig-km-assunto" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-km-assunto-1.png" class="img-fluid" width="864" /></p>
+<figcaption>Figura 10: Curva de sobrevivência dos tempos de tramitação dos processos, por assunto</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>A <a href="#fig-km-classe">Figura&nbsp;11</a> mostra os tempos por classe processual. A classe com maior tempo mediano é a execução fiscal, com 189 meses, enquanto a classe com menor tempo mediano é o procedimento comum cível, com 26 meses de duração.</p>
+<p>A <a href="#fig-km-classe">Figura 11</a> mostra os tempos por classe processual. A classe com maior tempo mediano é a execução fiscal, com 189 meses, enquanto a classe com menor tempo mediano é o procedimento comum cível, com 26 meses de duração.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-km-classe" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-km-classe-1.png" class="img-fluid figure-img" width="864"></p>
-<figcaption class="figure-caption">Figura&nbsp;11: Curva de sobrevivência dos tempos de tramitação dos processos, por classe</figcaption>
+<div id="fig-km-classe" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-km-classe-1.png" class="img-fluid" width="864" /></p>
+<figcaption>Figura 11: Curva de sobrevivência dos tempos de tramitação dos processos, por classe</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>A <a href="#fig-km-tribunal">Figura&nbsp;12</a> mostra os tempos por tribunal. Por serem 10 categorias, é um pouco difícil de visualizar todas as curvas. O tribunal com mnor mediana de tempo é o TJRO, com mediana de 43 meses, enquanto o tribunal com maior tempo é o TJMT, com mediana de 100 meses.</p>
+<p>A <a href="#fig-km-tribunal">Figura 12</a> mostra os tempos por tribunal. Por serem 10 categorias, é um pouco difícil de visualizar todas as curvas. O tribunal com mnor mediana de tempo é o TJRO, com mediana de 43 meses, enquanto o tribunal com maior tempo é o TJMT, com mediana de 100 meses.</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: There was 1 warning in `dplyr::mutate()`.
-ℹ In argument: `assunto = stringr::str_wrap(sgt_nm_assunto, 20)`.
-Caused by warning in `stri_split_lines()`:
-! argument is not an atomic vector; coercing</code></pre>
-</div>
 <div class="cell-output-display">
-<div id="fig-km-tribunal" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-km-tribunal-1.png" class="img-fluid figure-img" width="864"></p>
-<figcaption class="figure-caption">Figura&nbsp;12: Curva de sobrevivência dos tempos de tramitação dos processos, por tribunal</figcaption>
+<div id="fig-km-tribunal" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-km-tribunal-1.png" class="img-fluid" width="864" /></p>
+<figcaption>Figura 12: Curva de sobrevivência dos tempos de tramitação dos processos, por tribunal</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>A <a href="#fig-km-municipio">Figura&nbsp;13</a> mostra os tempos por município. O município com maior tempo mediano é Altamira, com 130 meses, enquanto o município com menor tempo mediano é Barcarena, com 24 meses de duração.</p>
+<p>A <a href="#fig-km-municipio">Figura 13</a> mostra os tempos por município. O município com maior tempo mediano é Altamira, com 130 meses, enquanto o município com menor tempo mediano é Barcarena, com 24 meses de duração.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-km-municipio" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-km-municipio-1.png" class="img-fluid figure-img" width="864"></p>
-<figcaption class="figure-caption">Figura&nbsp;13: Curva de sobrevivência dos tempos de tramitação dos processos, por município</figcaption>
+<div id="fig-km-municipio" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-km-municipio-1.png" class="img-fluid" width="864" /></p>
+<figcaption>Figura 13: Curva de sobrevivência dos tempos de tramitação dos processos, por município</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="datajud-4" class="level3">
-<h3 class="anchored" data-anchor-id="datajud-4">DataJud</h3>
-<p>No DataJud, o tempo foi calculado fazendo-se a diferença entre a data de última baixa e a data do primeiro recebimento. O resultado geral é mostrado na <a href="#fig-km-datajud">Figura&nbsp;14</a>. Foram retirados tempos maiores de 10 mil dias e tempos menores que zero. A mediana é de aproximadamente 37 meses, pouco mais de 3 anos.</p>
+<h3>DataJud</h3>
+<p>No DataJud, o tempo foi calculado fazendo-se a diferença entre a data de última baixa e a data do primeiro recebimento. O resultado geral é mostrado na <a href="#fig-km-datajud">Figura 14</a>. Foram retirados tempos maiores de 10 mil dias e tempos menores que zero. A mediana é de aproximadamente 70 meses, quase 6 anos.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-km-datajud" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-km-datajud-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figura&nbsp;14: Curva de sobrevivência dos tempos de tramitação dos processos</figcaption>
+<div id="fig-km-datajud" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-km-datajud-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figura 14: Curva de sobrevivência dos tempos de tramitação dos processos</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>A <a href="#fig-km-assunto-datajud">Figura&nbsp;15</a> mostra a distribuição dos tempos por assunto, considerando os cinco assuntos com maior volume de processos. O assunto “Quadrilha ou Bando” apresentou o maior tempo, com 50 meses, enquanto tráfico de drogas apresentou tempo similar à categoria “Outros”, com 36 meses.</p>
+<p>A <a href="#fig-km-assunto-datajud">Figura 15</a> mostra a distribuição dos tempos por assunto, considerando os cinco assuntos com maior volume de processos. O assunto “Quadrilha ou Bando” apresentou o maior tempo, quase 9 anos, enquanto tráfico de drogas apresentou tempo de aproximadamente 5 anos e meio.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-km-assunto-datajud" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-km-assunto-datajud-1.png" class="img-fluid figure-img" width="864"></p>
-<figcaption class="figure-caption">Figura&nbsp;15: Curva de sobrevivência dos tempos de tramitação dos processos, por assunto</figcaption>
+<div id="fig-km-assunto-datajud" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-km-assunto-datajud-1.png" class="img-fluid" width="864" /></p>
+<figcaption>Figura 15: Curva de sobrevivência dos tempos de tramitação dos processos, por assunto</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>A <a href="#fig-km-tribunal-datajud">Figura&nbsp;16</a> mostra os tempos por tribunal. O menor tempo mediano identificado foi no TJRR, com mediana de 5 meses, enquanto o maior tempo foi no TJAM, com mediana de 96 meses.</p>
+<p>A <a href="#fig-km-tribunal-datajud">Figura 16</a> mostra os tempos por tribunal. O menor tempo mediano identificado foi no TJRR, com mediana de 9 meses, enquanto o maior tempo foi no TJTO, com mediana de quase 12 anos.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-km-tribunal-datajud" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-km-tribunal-datajud-1.png" class="img-fluid figure-img" width="864"></p>
-<figcaption class="figure-caption">Figura&nbsp;16: Curva de sobrevivência dos tempos de tramitação dos processos, por tribunal</figcaption>
+<div id="fig-km-tribunal-datajud" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-km-tribunal-datajud-1.png" class="img-fluid" width="864" /></p>
+<figcaption>Figura 16: Curva de sobrevivência dos tempos de tramitação dos processos, por tribunal</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>A <a href="#fig-km-municipio-datajud">Figura&nbsp;17</a> mostra os tempos por município. O município com maior tempo mediano é Boa Vista, com 5 meses meses, enquanto o município com menor tempo mediano é Manaus, com 85 meses de duração.</p>
+<p>A <a href="#fig-km-municipio-datajud">Figura 17</a> mostra os tempos por município. O município com maior tempo mediano é Belém (PA), com 6 anos e meio, enquanto o município com menor tempo mediano é Boa Vista (RR), com pouco menos de 7 meses de duração.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-km-municipio-datajud" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-km-municipio-datajud-1.png" class="img-fluid figure-img" width="864"></p>
-<figcaption class="figure-caption">Figura&nbsp;17: Curva de sobrevivência dos tempos de tramitação dos processos, por município</figcaption>
+<div id="fig-km-municipio-datajud" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-km-municipio-datajud-1.png" class="img-fluid" width="864" /></p>
+<figcaption>Figura 17: Curva de sobrevivência dos tempos de tramitação dos processos, por município</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="trf1-4" class="level3">
-<h3 class="anchored" data-anchor-id="trf1-4">TRF1</h3>
+<h3>TRF1</h3>
 <p>A análise do TRF1 exige um esforço maior no tratamento das movimentações processuais. Para realizar a análise, foram consideradas algumas heurísticas de classificação. Primeiro, o evento de baixa considerado foi o último cuja movimentação apresenta a informação de baixa. O início do processo foi considerado pelo campo <code>data_de_autuacao</code>. Todos os processos foram considerados como baixados, já que a pesquisa realizada para listar os processos é retrospectiva. Nesse caso, a análise de sobrevivência não é necessária, mas foi mantida para não mudar as visualizações</p>
-<p>No TRF1, o resultado geral é mostrado na é a <a href="#fig-km-trf1">Figura&nbsp;18</a>. Foram retirados tempos maiores de 10 mil dias e tempos menores que zero. A mediana é de aproximadamente 29 meses, ou 2 anos e meio.</p>
+<p>No TRF1, o resultado geral é mostrado na é a <a href="#fig-km-trf1">Figura 18</a>. Foram retirados tempos maiores de 10 mil dias e tempos menores que zero. A mediana é de aproximadamente 29 meses, ou 2 anos e meio.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-km-trf1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-km-trf1-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figura&nbsp;18: Curva de sobrevivência dos tempos de tramitação dos processos</figcaption>
+<div id="fig-km-trf1" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-km-trf1-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figura 18: Curva de sobrevivência dos tempos de tramitação dos processos</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>A <a href="#fig-km-assunto-trf1">Figura&nbsp;19</a> mostra a distribuição dos tempos por assunto, considerando os cinco assuntos com maior volume de processos. Os tempos variam pouco por assunto, sendo que o assunto com menor tempo é “Ambiental” e o assunto com maior tempo é o “Rural Art. 4851”.</p>
+<p>A <a href="#fig-km-assunto-trf1">Figura 19</a> mostra a distribuição dos tempos por assunto, considerando os cinco assuntos com maior volume de processos. Os tempos variam pouco por assunto, sendo que o assunto com menor tempo é “Ambiental” e o assunto com maior tempo é o “Rural Art. 4851”.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-km-assunto-trf1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="2-descritiva_files/figure-html/fig-km-assunto-trf1-1.png" class="img-fluid figure-img" width="864"></p>
-<figcaption class="figure-caption">Figura&nbsp;19: Curva de sobrevivência dos tempos de tramitação dos processos, por assunto</figcaption>
+<div id="fig-km-assunto-trf1" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="2-descritiva_files/figure-html/fig-km-assunto-trf1-1.png" class="img-fluid" width="864" /></p>
+<figcaption>Figura 19: Curva de sobrevivência dos tempos de tramitação dos processos, por assunto</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="discussão-5" class="level3">
-<h3 class="anchored" data-anchor-id="discussão-5">Discussão</h3>
+<h3>Discussão</h3>
 <p>As três bases apresentam padrões de tempos diferentes. No SireneJud, os processos são longos, com duração mediana maior que 7 anos e o tempo dos processos não varia muito por tema. No DataJud, os processos são um pouco mais rápidos (6 anos), com uma variação considerável por assunto. No TRF1, os processos são mais curtos, o que possivelmente é um efeito do método retrospectivo de coleta, e com pouca variação nas medianas por assunto.</p>
 </section>
 </section>
 </section>
 <section id="referências" class="level1 unnumbered">
-
-
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<h1 class="unnumbered">Referências</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-colosimoAnaliseSobrevivenciaAplicada2006" class="csl-entry" role="listitem">
 Colosimo, Enrico Antonio, e Suely Ruiz Giolo. 2006. <em>Análise de Sobrevivência Aplicada</em>. <span>Editora Blucher</span>.
 </div>
-</div></section></div></main>
+</div>
+</section>
+
+</main>
 <!-- /main column -->
-<script id="quarto-html-after-body" type="application/javascript">
+<script id = "quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2576,6 +2562,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 
+</body>
 
-
-</body></html>
+</html>
