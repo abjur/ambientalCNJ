@@ -23,7 +23,10 @@ mod_plot_ui <- function(id){
         shiny::tags$h3("M\u00E9tricas"),
         shiny::tags$p(
           shiny::tags$b("Índice de Litigiosidade (ILG): "),
-          paste0("Mede a quantidade de processos dividida por 100.000 habitantes no município, com base no IBGE/2010")
+          paste0(
+            "Mede a quantidade de processos dividida por 100.000",
+            "habitantes no município, com base no IBGE/2010"
+          )
         ),
         shiny::tags$p(
           shiny::tags$b("Desmatamento: "),
@@ -37,7 +40,11 @@ mod_plot_ui <- function(id){
       bs4Dash::bs4ValueBoxOutput(ns("card1"), width = 3) |>
         bs4Dash::tooltip("Quantidade de processos no filtro"),
       bs4Dash::bs4ValueBoxOutput(ns("card2"), width = 3) |>
-        bs4Dash::tooltip("Tempo mediano das ações"),
+        bs4Dash::tooltip(paste0(
+          "Tempo mediano das ações entre a data de distribuição e a ",
+          "data de julgamento. Calculado utilizando análise de sobrevivência, ",
+          "ou seja, considera o tempo de tramitação dos processos ativos."
+        )),
       bs4Dash::bs4ValueBoxOutput(ns("card3"), width = 3) |>
         bs4Dash::tooltip("Correlação entre ILG e desmatamento"),
       bs4Dash::bs4ValueBoxOutput(ns("card4"), width = 3) |>
@@ -60,7 +67,7 @@ mod_plot_ui <- function(id){
               "TRF1" = "trf1"
             ),
             selected = c("trf1"),
-            multiple = TRUE,
+            multiple = FALSE,
             options = c(abjDash::picker_options(), `live-search` = FALSE)
           )),
           shiny::column(3,shinyWidgets::pickerInput(
@@ -101,7 +108,7 @@ mod_plot_ui <- function(id){
     # primeira linha ----
     shiny::fluidRow(
       bs4Dash::tabBox(
-        title = "Comarca",
+        title = "",
         width = 6, height = "446px",
         shiny::tabPanel(
           title = "Assunto",
@@ -110,28 +117,42 @@ mod_plot_ui <- function(id){
         shiny::tabPanel(
           title = "Classe",
           spinner(reactable::reactableOutput(ns("tab_classe")))
+        ),
+        footer = paste0(
+          "Quantidade de processos por classe e assunto."
         )
       ),
       bs4Dash::box(
         width = 6,
         title = "Mapa",
           spinner(plotly::plotlyOutput(ns("mapa"))
+        ),
+        footer = paste0(
+          "Mapa da região amazônica com a contagem de processos por município."
         )
       )
     ),
 
     # segunda linha ----
-
     shiny::fluidRow(
       bs4Dash::box(
         title = "Tempo",
         width = 6,
-        spinner(plotly::plotlyOutput(ns("tempo")))
+        spinner(plotly::plotlyOutput(ns("tempo"))),
+        footer = paste0(
+          "Tempo das ações entre a data de distribuição e a ",
+          "data de julgamento. Calculado utilizando análise de sobrevivência, ",
+          "ou seja, considera o tempo de tramitação dos processos ativos."
+        )
       ),
       bs4Dash::box(
         title = "Correlação desmatamento ILG",
         width = 6,
-        spinner(plotly::plotlyOutput(ns("dispersao")))
+        spinner(plotly::plotlyOutput(ns("dispersao"))),
+        footer = paste0(
+          "Gráfico de dispersão do índice de litigiosidade (casos novos / ",
+          "100.000 habitantes) e o percentual de área desmatada."
+        )
       )
     )
   )
@@ -146,7 +167,8 @@ mod_plot_server <- function(id){
 
 
     shiny::observe(shinyjs::runjs(stringr::str_glue(
-      'document.querySelector("#{ns("controles")} > div.card-header > div > button").click();'
+      'document.querySelector("#{ns("controles")} > ',
+      'div.card-header > div > button").click();'
     ))) |>
       shiny::bindEvent(input$botao_filtrar)
 
@@ -176,7 +198,10 @@ mod_plot_server <- function(id){
     validar <- shiny::reactive({
       shiny::validate(shiny::need(
         nrow(da()) > 0,
-        "N\u00e3o foi poss\u00edvel gerar a visualiza\u00e7\u00e3o com os par\u00e2metros selecionados."
+        paste0(
+          "N\u00e3o foi poss\u00edvel gerar a visualiza\u00e7\u00e3o ",
+          "com os par\u00e2metros selecionados."
+        )
       ))
     })
 
@@ -201,9 +226,10 @@ mod_plot_server <- function(id){
 
       label <- "Tempo mediano"
 
-      shiny::validate(
-        shiny::need(nrow(dplyr::filter(da(), tempo > 0, tempo < 10000)) > 10, "<Sem informação>")
-      )
+      shiny::validate(shiny::need(
+        nrow(dplyr::filter(da(), tempo > 0, tempo < 10000)) > 10,
+        "<Sem informação>"
+      ))
 
       val <- da() |>
         dplyr::filter(tempo > 0, tempo < 10000) |>
@@ -287,7 +313,9 @@ mod_plot_server <- function(id){
           list(
             classe = reactable::colDef("Classe", minWidth = 250),
             n = reactable::colDef("N", minWidth = 80),
-            prop = reactable::colDef("%", format = reactable::colFormat(percent = TRUE, digits = 2), minWidth = 80)
+            prop = reactable::colDef("%", format = reactable::colFormat(
+              percent = TRUE, digits = 2
+            ), minWidth = 80)
           ),
           compact = TRUE,
           highlight = TRUE
@@ -304,7 +332,9 @@ mod_plot_server <- function(id){
           list(
             assunto = reactable::colDef("Assunto", minWidth = 380),
             n = reactable::colDef("N", minWidth = 80),
-            prop = reactable::colDef("%", format = reactable::colFormat(percent = TRUE, digits = 2), minWidth = 80)
+            prop = reactable::colDef("%", format = reactable::colFormat(
+              percent = TRUE, digits = 2
+            ), minWidth = 80)
           ),
           compact = TRUE,
           highlight = TRUE
