@@ -260,6 +260,10 @@ A @fig-mapa mostra os pontos em que os processos foram distribuídos. Os pontos 
 #| label: fig-mapa
 #| fig-cap: "Pontos de distribuição dos processos"
 da_sirenejud |>
+  dplyr::inner_join(dplyr::select(
+    abjData::muni, id_municipio = muni_id, loc_lon = lon, loc_lat = lat),
+    "id_municipio"
+  ) |>
   dplyr::count(loc_lon, loc_lat) |>
   ggplot2::ggplot() +
   ggplot2::geom_sf(data = sf_amazon) +
@@ -1004,7 +1008,9 @@ Nas análises realizadas, não foi identificada uma relação entre índice de h
 
 __Questão__: Qual o tempo de duração médio das ações criminais que envolvam a temática ambiental?
 
-Como temos processos em andamento, a forma adequada de analisar os tempos é utilizando análise de sobrevivência [@colosimoAnaliseSobrevivenciaAplicada2006]. Faremos isso utilizando gráficos descritivos de Kaplan Meier.
+Como temos processos em andamento, a forma adequada de analisar os tempos é utilizando análise de sobrevivência [@colosimoAnaliseSobrevivenciaAplicada2006]. Faremos isso utilizando gráficos descritivos de Kaplan-Meier.
+
+Ao longo da pesquisa qualitativa, foi identificada a necessidade de analisar a proporção de processos que apresentaram prescrição. Por isso, além das análises de tempos, adicionamos análises sobre a proporção de processos que prescreveram nas bases de dados onde essa informação foi encontrada.
 
 ### SireneJud
 
@@ -1168,6 +1174,51 @@ gg$plot +
   )
 ```
 
+A @tbl-prescricao-sirenejud mostra a proporção de casos na base que apresentaram prescrição. Na base do Sirenejud, foi identificada uma proporção geral de 8% de prescrição.
+
+```{r}
+#| label: tbl-prescricao-sirenejud
+#| tbl-cap: Proporção de processos com prescrição
+
+da_sirenejud |>
+  dplyr::mutate(tem_prescricao = ifelse(tem_prescricao, "Sim", "Não")) |>
+  dplyr::count(tem_prescricao) |>
+  dplyr::mutate(prop = formattable::percent(n / sum(n), 1)) |>
+  knitr::kable(col.names = c("Nome", "N", "%"))
+```
+
+A @tbl-prescricao-sirenejud-assunto mostra a proporção prescrição por assunto. Os assuntos com maior proporção de prescrição são os relacionados a crimes contra o meio ambiente e crimes contra a flora, com quase um quinto dos casos envolvendo prescrição. Já os casos relacionados à dano ambiental e revogação/anulação de multa ambiental apresentam proporção de prescrição abaixo de 1%.
+
+```{r}
+#| label: tbl-prescricao-sirenejud-assunto
+#| tbl-cap: Proporção de processos com prescrição por assunto
+
+da_sirenejud |>
+  dplyr::mutate(
+    assunto = factor(as.character(sgt_nm_assunto)),
+    assunto = forcats::fct_lump_n(assunto, 5, other_level = "Outros")
+  ) |>
+  dplyr::group_by(assunto) |>
+  dplyr::summarise(
+    n = dplyr::n(),
+    prop_prescricao = formattable::percent(mean(tem_prescricao), 1)
+  ) |>
+  dplyr::arrange(dplyr::desc(prop_prescricao)) |>
+  knitr::kable(col.names = c("Assunto", "N", "% Prescricao"))
+```
+
+No segundo grau, a proporção de prescrição é significativamente menor. A @tbl-prescricao-sirenejud-2grau mostra a proporção de casos na base do segundo grau que apresentaram prescrição. No segundo grau, foi identificada uma proporção de 1% de prescrição.
+
+```{r}
+#| label: tbl-prescricao-sirenejud-2grau
+#| tbl-cap: Proporção de processos com prescrição no segundo grau
+
+da_sirenejud_2grau |>
+  dplyr::mutate(tem_prescricao = ifelse(tem_prescricao, "Sim", "Não")) |>
+  dplyr::count(tem_prescricao) |>
+  dplyr::mutate(prop = formattable::percent(n / sum(n), 1)) |>
+  knitr::kable(col.names = c("Nome", "N", "%"))
+```
 
 
 ### DataJud
@@ -1295,6 +1346,53 @@ gg$plot +
     x = "Tempo (meses)", y = "Sobrevivência",
     colour = "Município"
   )
+```
+
+A @tbl-prescricao-datajud mostra a proporção de casos na base que apresentaram prescrição. Na base do Datajud, foi identificada uma proporção geral de 4% de prescrição, metade da proporção encontrada na base do Sirenejud.
+
+```{r}
+#| label: tbl-prescricao-datajud
+#| tbl-cap: Proporção de processos com prescrição
+
+da_datajud |>
+  dplyr::mutate(tem_prescricao = ifelse(tem_prescricao, "Sim", "Não")) |>
+  dplyr::count(tem_prescricao) |>
+  dplyr::mutate(prop = formattable::percent(n / sum(n), 1)) |>
+  knitr::kable(col.names = c("Nome", "N", "%"))
+```
+
+A @tbl-prescricao-datajud-assunto mostra a proporção prescrição por assunto. O assunto com maior proporção de prescrição é o relacionado à quadrilha ou bando, com aproximadamente 8% dos casos. Já os casos relacionados à tráfico de drogas apresentam proporções de prescrição abaixo de 4%.
+
+```{r}
+#| label: tbl-prescricao-datajud-assunto
+#| tbl-cap: Proporção de processos com prescrição por assunto
+
+da_datajud |>
+  dplyr::mutate(
+    assunto = factor(as.character(assunto)),
+    assunto = forcats::fct_na_value_to_level(assunto, "Vazio"),
+    assunto = forcats::fct_lump_n(assunto, 5, other_level = "Outros")
+  ) |>
+  dplyr::group_by(assunto) |>
+  dplyr::summarise(
+    n = dplyr::n(),
+    prop_prescricao = formattable::percent(mean(tem_prescricao), 1)
+  ) |>
+  dplyr::arrange(dplyr::desc(prop_prescricao)) |>
+  knitr::kable(col.names = c("Assunto", "N", "% Prescricao"))
+```
+
+No segundo grau, a proporção de prescrição é parecida com a do Sirenejud. A @tbl-prescricao-datajud-2grau mostra a proporção de casos na base do segundo grau que apresentaram prescrição. No segundo grau, foi identificada uma proporção de 1% de prescrição.
+
+```{r}
+#| label: tbl-prescricao-datajud-2grau
+#| tbl-cap: Proporção de processos com prescrição no segundo grau
+
+da_datajud_2grau |>
+  dplyr::mutate(tem_prescricao = ifelse(tem_prescricao, "Sim", "Não")) |>
+  dplyr::count(tem_prescricao) |>
+  dplyr::mutate(prop = formattable::percent(n / sum(n), 1)) |>
+  knitr::kable(col.names = c("Nome", "N", "%"))
 ```
 
 ### TRF1
