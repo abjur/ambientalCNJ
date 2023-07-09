@@ -62,8 +62,9 @@
 
 da_raw <- readr::read_csv2(
   "data-raw/sirenejud/datajud_new_261022.csv",
-  lazy = TRUE, n_max = 100,
-  locale = readr::locale(encoding = "UTF-8")
+  lazy = FALSE,
+  locale = readr::locale(encoding = "UTF-8"),
+  progress = TRUE
 )
 
 da_basicas <- da_raw |>
@@ -97,7 +98,8 @@ da_basicas <- da_raw |>
     dt_baixado = dt_inicio_situacao_baixado,
     st_grau = grau,
     st_tempo = tempo_tramitacao,
-    st_encerrado = as.numeric(flg_julgamento == "Concluído")
+    st_encerrado = as.numeric(flg_julgamento == "Concluído"),
+    tem_prescricao = stringr::str_detect(movimento, "11878,|1045,")
   )
 
 readr::write_rds(da_basicas, "data-raw/sirenejud/da_basicas.rds")
@@ -191,6 +193,8 @@ da_basicas_amazon <- da_basicas |>
 
 readr::write_rds(da_basicas_amazon, "inst/relatorios/assets/rds/da_sirenejud.rds")
 
+da_sirenejud <- readr::read_rds("inst/relatorios/assets/rds/da_sirenejud.rds")
+
 piggyback::pb_upload(
   "inst/relatorios/assets/rds/da_sirenejud.rds",
   tag = "sirenejud",
@@ -276,8 +280,7 @@ arqs_datajud <- fs::dir_ls("data-raw/corrupcao/enccla-cnj/enccla-cnj/datajud/dat
 purrr::walk(arqs_datajud, pegar_infos_json, .progress = TRUE)
 
 
-
-piggyback::pb_new_release(tag = "corrupcao")
+# piggyback::pb_new_release(tag = "corrupcao")
 
 ## Muito grande
 # piggyback::pb_upload(
@@ -288,7 +291,7 @@ piggyback::pb_new_release(tag = "corrupcao")
 
 
 da_corrup_select <- da_corrup |>
-  dplyr::select(
+  dplyr::transmute(
     file,
     indice,
     id,
@@ -305,7 +308,8 @@ da_corrup_select <- da_corrup |>
     polo_pa_count,
     polo_pa_juridica_count,
     mov_count,
-    dt_baixa = mov_1st_julgamento_dataHora
+    dt_baixa = mov_1st_julgamento_dataHora,
+    tem_prescricao = stringr::str_detect(movimento, "11878,|1045,")
   )
 
 readr::write_rds(da_corrup_select, "data-raw/corrupcao/da_corrup_select.rds")
@@ -318,7 +322,19 @@ piggyback::pb_upload(
 
 ## Baixo processamento (rodar)
 
-da_corrup_select <- readr::read_rds("data-raw/corrupcao/da_corrup_select.rds")
+da_corrup_movs <- readr::read_rds("data-raw/corrupcao/da_corrup_movs.rds")
+
+da_corrup_movs_join <- da_corrup_movs |>
+  dplyr::mutate(id = stringr::str_extract(id, "[0-9]{20}")) |>
+  dplyr::distinct(id, .keep_all = TRUE)
+
+da_corrup_select <- readr::read_rds("data-raw/corrupcao/da_corrup_select.rds") |>
+  dplyr::mutate(
+    tem_prescricao = numero %in% da_corrup_movs_join$id
+  )
+
+da_corrup_select |>
+  dplyr::count(tem_prescricao)
 
 rx_assuntos_drogas <- c(
   "3372|11355|5566|3553|3417|3614|5885|5895|5896|9860|5901|9862|5900"
@@ -454,6 +470,7 @@ da_corrup_orgaos <- da_corrup_select |>
     st_tempo = dplyr::if_else(st_tempo < 0, NA_real_, st_tempo)
   ) |>
   dplyr::left_join(desmatamento, "id_municipio")
+
 
 readr::write_rds(da_corrup_orgaos, "inst/relatorios/assets/rds/da_datajud_2grau.rds")
 
