@@ -20,9 +20,9 @@ frequentemente são mais efetivas do que as sanções previstas nas leis de
 crimes ambientais. Além disso, serão geradas recomendações sobre o
 assunto.
 
-**Link do relatório descritivo**: [aqui](abj.quarto.pub/ambientalcnj).
+**Link do relatório descritivo**: [aqui](https://abj.quarto.pub/ambientalcnj).
 
-**Link do Dashboard**: [aqui](abjur.shinyapps.io/ambientalCNJ).
+**Link do Dashboard**: [aqui](https://abjur.shinyapps.io/ambientalCNJ).
 
 A pesquisa foi desenvolvida a partir de 16 perguntas norteadoras,
 listadas abaixo.
